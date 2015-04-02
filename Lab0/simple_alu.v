@@ -1,4 +1,4 @@
-module(clk, reset_n, opcode_valid, opcode, data, done, result, overflow)
+module simple_alu(clk, reset_n, opcode_valid, opcode, data, done, result, overflow)
 
 input clk;
 input reset_n;
@@ -32,9 +32,11 @@ parameter
     COMP    = 2'b11;
 
 reg [3:0] State, NextState;
-reg [8:0] Sum_AB;
+reg [8:0] diff_AB;
 reg [7:0] A_Data, B_Data;
 reg [1:0] opcode_def;
+reg store_a, store_b;
+reg start_alu, finished;
 
 always @(posedge clk,reset_n)
 begin
@@ -83,9 +85,9 @@ begin
         ADD:
         begin
             done        = OFF;
-            Sum_AB      = A_Data + B_Data;
-            data        = Sum_AB[7:0];
-            overflow    = Sum_AB[8];
+            diff_AB      = A_Data + B_Data;
+            data        = diff_AB[7:0];
+            overflow    = diff_AB[8];
         end
 
         SUB:
