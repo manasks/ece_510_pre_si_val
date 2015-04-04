@@ -41,15 +41,15 @@ reg start_alu, finished;
 always @(posedge clk,reset_n)
 begin
     if(reset_n)
+	begin
         State = RESET;
+	end
     else
+	begin
         State = NextState;
+	end
 end
 
-always @(State)
-begin
-
-end
 
 always @(State,opcode_valid,opcode)
 begin
@@ -117,4 +117,5 @@ begin
             data        = 8'b00000000;
             overflow    = OFF;
         end
+	endcase
 end

@@ -1,6 +1,171 @@
-module alu_datapath(clk, alu_data_a, alu_data_b, store_a, store_b, start_alu, finished, result, overflow)
+module alu_datapath(clk, alu_data_a, alu_data_b, opcode_value, store_a, store_b, start, alu_done, result, overflow)
 
+input alu_data_a;
+input alu_data_b;
+input opcode_value;
+input store_a;
+input store_b;
+input start;
 
+output alu_done;
+output result;
+output overflow;
 
+parameter ON 		= 1'b1;
+parameter OFF 		= 1'b0;
+parameter alu_size 	= 8;
+parameter ADD 		= 2'b00;
+parameter SUB 		= 2'b01;
+parameter PAR 		= 2'b10;
+parameter COMP 		= 2'b11;
 
+reg [alu_size-1:0] buf_a;
+reg [alu_size-1:0] buf_b;
 
+reg [alu_size-1:0] add_a;
+reg [alu_size-1:0] add_b;
+reg [alu_size-1:0] add_sum;
+reg add_carry_in;
+reg add_overflow;
+
+reg [alu_size-1:0] sub_a;
+reg [alu_size-1:0] sub_b;
+reg [alu_size-1:0] sub_diff;
+reg sub_borrow_in;
+reg sub_borrow_out;
+
+reg [alu_size-1:0] par_a;
+reg [alu_size-1:0] par_b;
+reg [alu_size-1:0] par_parity;
+
+reg [alu_size-1:0] comp_a;
+reg [alu_size-1:0] comp_b;
+reg [alu_size-1:0] comp_comp;
+
+always @(posedge clk)
+begin
+    if(store_a)
+    begin
+		buf_a = alu_data_a;
+		start = OFF;
+    end
+	else if(store_b)
+    begin    
+		buf_b = alu_data_b;
+		start = OFF;
+	end
+	else if(start)
+	begin
+		case(opcode_value):
+			ADD:
+			begin
+				add_a = buf_a;
+				add_b = buf_b;
+				add_carry_in = 1'b0;
+				start = ON;
+			end
+			
+			SUB:
+			begin
+				sub_a = buf_a;
+				sub_b = buf_b;
+				sub_borrow_in = 1'b0
+				start = ON;
+			end
+		
+			PAR:
+			begin
+				par_a = buf_a;
+				par_b = buf_b;
+				start = ON;
+			end
+			
+			COMP:
+			begin
+				comp_a = buf_a;
+				comp_b = buf_b;
+				start = ON;
+			end
+		endcase
+	end
+	else
+	begin
+		start = OFF;
+	end
+end
+
+always @(posedge clk)
+begin
+    if(done)
+	begin
+        case(opcode_value):
+			ADD:
+			begin
+				result 	= add_sum;
+				overflow = add_overflow;
+				alu_done = ON;
+			end
+			
+			SUB:
+			begin
+				result = sub_diff;
+				overflow = sub_borrow_out;
+				alu_done = ON;
+			end
+		
+			PAR:
+			begin
+				result = par_parity;
+				alu_done = ON;
+			end
+			
+			COMP:
+			begin
+				result = comp_comp;
+				alu_done = ON;
+			end
+		endcase
+	end
+	else
+	begin
+		result = 0;
+		overflow = 0;
+		alu_done = OFF;
+	end
+end
+
+	byte_adder #(alu_size) adder_ex(
+			.byte_a(add_a),
+			.byte_b(add_b),
+			.byte_carry_in(add_carry_in),
+			.byte_sum(add_sum),
+			.byte_overflow(add_overflow),
+			.start(start),
+			.done(done)
+	);
+
+	byte_subtractor #(alu_size) subtractor_ex(
+			.byte_a(sub_a),
+			.byte_b(sub_b),
+			.byte_borrow_in(sub_borrow_in),
+			.byte_diff(sub_diff),
+			.byte_borrow_out(sub_borrow_out),
+			.start(start),
+			.done(done)
+	};
+	
+	byte_parity #(alu_size) parity_ex(
+			.byte_a(par_a),
+			.byte_b(par_b),
+			.byte_parity(par_parity),
+			.start(start),
+			.done(done)
+	);
+
+	byte_comp #(alu_size) comp_ex(
+			.byte_a(comp_a),
+			.byte_b(comp_b),
+			.byte_comp(comp_comp),
+			.start(start),
+			.done(done)
+	);
