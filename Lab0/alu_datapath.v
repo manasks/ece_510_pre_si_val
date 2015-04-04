@@ -1,7 +1,6 @@
-module alu_datapath(clk, alu_data_a, alu_data_b, opcode_value, store_a, store_b, start, alu_done, result, overflow)
+module alu_datapath(clk, alu_data, opcode_value, store_a, store_b, start, alu_done, result, overflow)
 
-input alu_data_a;
-input alu_data_b;
+input alu_data;
 input opcode_value;
 input store_a;
 input store_b;
@@ -21,6 +20,7 @@ parameter COMP 		= 2'b11;
 
 reg [alu_size-1:0] buf_a;
 reg [alu_size-1:0] buf_b;
+reg done;
 
 reg [alu_size-1:0] add_a;
 reg [alu_size-1:0] add_b;
@@ -46,13 +46,11 @@ always @(posedge clk)
 begin
     if(store_a)
     begin
-		buf_a = alu_data_a;
-		start = OFF;
+		buf_a = alu_data;
     end
 	else if(store_b)
     begin    
-		buf_b = alu_data_b;
-		start = OFF;
+		buf_b = alu_data;
 	end
 	else if(start)
 	begin
@@ -62,7 +60,6 @@ begin
 				add_a = buf_a;
 				add_b = buf_b;
 				add_carry_in = 1'b0;
-				start = ON;
 			end
 			
 			SUB:
@@ -70,27 +67,20 @@ begin
 				sub_a = buf_a;
 				sub_b = buf_b;
 				sub_borrow_in = 1'b0
-				start = ON;
 			end
 		
 			PAR:
 			begin
 				par_a = buf_a;
 				par_b = buf_b;
-				start = ON;
 			end
 			
 			COMP:
 			begin
 				comp_a = buf_a;
 				comp_b = buf_b;
-				start = ON;
 			end
 		endcase
-	end
-	else
-	begin
-		start = OFF;
 	end
 end
 
