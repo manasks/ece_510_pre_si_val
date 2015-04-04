@@ -12,35 +12,35 @@ output overflow;
 
 parameter ON 		= 1'b1;
 parameter OFF 		= 1'b0;
-parameter alu_size 	= 8;
+parameter DATA_WIDTH 	= 8;
 parameter ADD 		= 2'b00;
 parameter SUB 		= 2'b01;
 parameter PAR 		= 2'b10;
 parameter COMP 		= 2'b11;
 
-reg [alu_size-1:0] buf_a;
-reg [alu_size-1:0] buf_b;
+reg [DATA_WIDTH-1:0] buf_a;
+reg [DATA_WIDTH-1:0] buf_b;
 reg done;
 
-reg [alu_size-1:0] add_a;
-reg [alu_size-1:0] add_b;
-reg [alu_size-1:0] add_sum;
+reg [DATA_WIDTH-1:0] add_a;
+reg [DATA_WIDTH-1:0] add_b;
+reg [DATA_WIDTH-1:0] add_sum;
 reg add_carry_in;
 reg add_overflow;
 
-reg [alu_size-1:0] sub_a;
-reg [alu_size-1:0] sub_b;
-reg [alu_size-1:0] sub_diff;
+reg [DATA_WIDTH-1:0] sub_a;
+reg [DATA_WIDTH-1:0] sub_b;
+reg [DATA_WIDTH-1:0] sub_diff;
 reg sub_borrow_in;
 reg sub_borrow_out;
 
-reg [alu_size-1:0] par_a;
-reg [alu_size-1:0] par_b;
-reg [alu_size-1:0] par_parity;
+reg [DATA_WIDTH-1:0] par_a;
+reg [DATA_WIDTH-1:0] par_b;
+reg [DATA_WIDTH-1:0] par_parity;
 
-reg [alu_size-1:0] comp_a;
-reg [alu_size-1:0] comp_b;
-reg [alu_size-1:0] comp_comp;
+reg [DATA_WIDTH-1:0] comp_a;
+reg [DATA_WIDTH-1:0] comp_b;
+reg [DATA_WIDTH-1:0] comp_comp;
 
 always @(posedge clk)
 begin
@@ -124,7 +124,7 @@ begin
 	end
 end
 
-	byte_adder #(alu_size) adder_ex(
+	byte_adder #(DATA_WIDTH) adder_ex(
 			.byte_a(add_a),
 			.byte_b(add_b),
 			.byte_carry_in(add_carry_in),
@@ -134,7 +134,7 @@ end
 			.done(done)
 	);
 
-	byte_subtractor #(alu_size) subtractor_ex(
+	byte_subtractor #(DATA_WIDTH) subtractor_ex(
 			.byte_a(sub_a),
 			.byte_b(sub_b),
 			.byte_borrow_in(sub_borrow_in),
@@ -144,7 +144,7 @@ end
 			.done(done)
 	};
 	
-	byte_parity #(alu_size) parity_ex(
+	byte_parity #(DATA_WIDTH) parity_ex(
 			.byte_a(par_a),
 			.byte_b(par_b),
 			.byte_parity(par_parity),
@@ -152,7 +152,7 @@ end
 			.done(done)
 	);
 
-	byte_comp #(alu_size) comp_ex(
+	byte_comp #(DATA_WIDTH) comp_ex(
 			.byte_a(comp_a),
 			.byte_b(comp_b),
 			.byte_comp(comp_comp),
