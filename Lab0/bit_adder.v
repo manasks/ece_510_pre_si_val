@@ -1,4 +1,4 @@
-module bit_subtractor(bit_a, bit_b, bit_carry_in, bit_diff, bit_carry_out, start, done)
+module bit_subtractor(bit_a, bit_b, bit_carry_in, bit_diff, bit_carry_out, start, done);
 
 input bit_a;
 input bit_b;
