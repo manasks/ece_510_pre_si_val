@@ -1,5 +1,7 @@
 module byte_subtractor(byte_a, byte_b, byte_borrow_in, byte_diff, byte_borrow_out, start, done);
 
+parameter DATA_WIDTH = 8;
+
 input [DATA_WIDTH-1:0] byte_a;
 input [DATA_WIDTH-1:0] byte_b;
 input byte_borrow_in;
@@ -11,8 +13,8 @@ output done;
 
 wire [DATA_WIDTH:0] borrow_buf;
 
-reg [DATA_WIDTH-1:0] byte_a_buf;
-reg [DATA_WIDTH-1:0] byte_b_buf;
+wire [DATA_WIDTH-1:0] byte_a_buf;
+wire [DATA_WIDTH-1:0] byte_b_buf;
 
 assign borrow_buf[0] = byte_borrow_in;
 assign byte_a_buf = byte_a;
@@ -24,7 +26,7 @@ genvar i;
 generate
 	for (i=0; i<DATA_WIDTH; i=i+1)
 	begin:
-		bit_subtractor bit_sub (
+		bit_subtractor bit_subtractor (
 				.bit_a(byte_a[i]),
 				.bit_b(byte_b[i]),
 				.bit_borrow_in(borrow_buf[i]),

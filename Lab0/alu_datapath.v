@@ -1,5 +1,8 @@
 module alu_datapath(clk, alu_data, opcode_value, store_a, store_b, start, alu_done, result, overflow);
 
+parameter DATA_WIDTH = 8;
+
+input clk;
 input alu_data;
 input opcode_value;
 input store_a;

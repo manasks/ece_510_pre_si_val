@@ -1,5 +1,7 @@
 module simple_alu(clk, reset_n, opcode_valid, opcode, data, done, result, overflow);
 
+parameter DATA_WIDTH = 8;
+
 input clk;
 input reset_n;
 input opcode_valid;
@@ -9,8 +11,6 @@ input [DATA_WIDTH-1:0] data;
 output done;
 output [DATA_WIDTH-1:0] result;
 output overflow;
-
-
 
 parameter ON = 1'b1;
 parameter OFF = 1'b0;
@@ -279,7 +279,7 @@ begin
 	endcase
 end
 
-	alu_datapath (
+	alu_datapath #(DATA_WIDTH) alu_datapath (
 			.clk(clk),
 			.alu_data(data),
 			.opcode_value(opcode_def),

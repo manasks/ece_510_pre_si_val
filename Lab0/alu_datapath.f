@@ -1,5 +1,3 @@
-global_def.vh
-alu_test.v
 bit_adder.v
 bit_subtractor.v
 bit_parity.v
@@ -9,5 +7,3 @@ byte_subtractor.v
 byte_parity.v
 byte_comp.v
 alu_datapath.v
-simple_alu.v
-top.v
