@@ -1,4 +1,4 @@
-module bit_subtractor(bit_a, bit_b, bit_carry_in, bit_diff, bit_carry_out, start, done);
+module bit_adder(bit_a, bit_b, bit_carry_in, bit_sum, bit_carry_out, start, done);
 
 input bit_a;
 input bit_b;
@@ -12,3 +12,5 @@ output done;
 assign bit_sum = (bit_a ^ bit_b) ^ bit_carry_in;
 assign bit_carry_out = ((bit_a ^ bit_b) & bit_carry_in) | (bit_a & bit_b);
 assign done = start;
+
+endmodule

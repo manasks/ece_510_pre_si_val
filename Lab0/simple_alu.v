@@ -36,6 +36,7 @@ parameter
 reg [3:0] State, NextState;
 reg [DATA_WIDTH-1:0] A_Data, B_Data;
 reg [1:0] opcode_def;
+reg [DATA_WIDTH-1:0] store_a_def, store_b_def, result_def;
 reg [1:0] opcode_buf;
 reg store_a, store_b;
 reg start, alu_done;
@@ -116,7 +117,7 @@ begin
 						NextState = PAR;
 					end
 					
-					COMP
+					COMP:
 					begin
 						NextState = COMP;
 					end				
@@ -288,8 +289,6 @@ end
 			.alu_done(alu_done),
 			.result(result_def),
 			.overflow(overflow_def)
-<<<<<<< HEAD
 	);
-=======
-	);
->>>>>>> parent of 7e75e3e... commit
+
+endmodule
