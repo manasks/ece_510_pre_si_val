@@ -1,4 +1,4 @@
-module simple_alu(clk, reset_n, opcode_valid, opcode, data, done, result, overflow)
+module simple_alu(clk, reset_n, opcode_valid, opcode, data, done, result, overflow);
 
 input clk;
 input reset_n;

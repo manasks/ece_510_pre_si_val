@@ -1,4 +1,4 @@
-module alu_datapath(clk, alu_data, opcode_value, store_a, store_b, start, alu_done, result, overflow)
+module alu_datapath(clk, alu_data, opcode_value, store_a, store_b, start, alu_done, result, overflow);
 
 input alu_data;
 input opcode_value;
