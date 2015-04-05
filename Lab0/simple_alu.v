@@ -10,8 +10,6 @@ output done;
 output [DATA_WIDTH-1:0] result;
 output overflow;
 
-
-
 parameter ON = 1'b1;
 parameter OFF = 1'b0;
 
@@ -33,6 +31,9 @@ parameter
     PAR     = 2'b10,
     COMP    = 2'b11;
 
+reg [DATA_WIDTH-1:0]result;
+reg overflow;
+reg done;
 reg [3:0] State, NextState;
 reg [DATA_WIDTH-1:0] A_Data, B_Data;
 reg [1:0] opcode_def;
