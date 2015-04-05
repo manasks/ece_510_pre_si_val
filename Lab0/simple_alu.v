@@ -1,3 +1,4 @@
+`include "alu_test.v"
 module simple_alu(clk, reset_n, opcode_valid, opcode, data, done, result, overflow);
 
 input clk;
@@ -298,3 +299,5 @@ end
 			.result(result_def),
 			.overflow(overflow_def)
 	);
+
+endmodule

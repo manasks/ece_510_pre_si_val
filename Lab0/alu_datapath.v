@@ -1,5 +1,6 @@
 module alu_datapath(clk, alu_data, opcode_value, store_a, store_b, start, alu_done, result, overflow);
 
+input clk;
 input alu_data;
 input opcode_value;
 input store_a;
@@ -9,13 +10,6 @@ input start;
 output alu_done;
 output result;
 output overflow;
-
-wire clk;
-wire [DATA_WIDTH-1:0] alu_data;
-wire [1:0] opcode_value;
-wire store_a;
-wire store_b;
-wire start;
 
 reg alu_done;
 reg [DATA_WIDTH-1:0] result;
@@ -169,3 +163,5 @@ end
 			.start(start),
 			.done(done)
 	);
+
+endmodule

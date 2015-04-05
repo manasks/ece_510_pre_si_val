@@ -9,3 +9,5 @@ output done;
 
 assign bit_comp_out = bit_a ^~ bit_b;
 assign done = start;
+
+endmodule

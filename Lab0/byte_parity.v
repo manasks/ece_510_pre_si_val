@@ -3,8 +3,13 @@ module byte_parity(byte_a, byte_b, byte_parity, start, done);
 input [DATA_WIDTH-1:0] byte_a;
 input [DATA_WIDTH-1:0] byte_b;
 input byte_borrow_in;
+input start;
 
 output [DATA_WIDTH-1:0] byte_parity;
+output done;
+
+reg [DATA_WIDTH-1:0] byte_parity;
+reg done;
 
 genvar i;
 

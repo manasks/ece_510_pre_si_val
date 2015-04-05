@@ -1,15 +1,20 @@
-module byte_adder(byte_a, byte_b, byte_carry_in, byte_sum, byte_overflow, start, done);
+module byte_adder(
 
-input wire [DATA_WIDTH-1:0] byte_a;
-input wire [DATA_WIDTH-1:0] byte_b;
-input wire byte_carry_in;
-input wire start;
+    input [DATA_WIDTH-1:0] byte_a,
+    input [DATA_WIDTH-1:0] byte_b,
+    input byte_carry_in,
+    input start,
 
-output reg [DATA_WIDTH-1:0] byte_sum;
-output reg byte_overflow;
-output reg done;
+    output [DATA_WIDTH-1:0] byte_sum,
+    output byte_overflow,
+    output done
+);
 
-wire [DATA_WIDTH:0] carry_buf;
+reg [DATA_WIDTH-1:0] byte_sum;
+reg byte_overflow;
+reg done;
+
+reg [DATA_WIDTH:0] carry_buf;
 
 reg [DATA_WIDTH-1:0] byte_a_buf;
 reg [DATA_WIDTH-1:0] byte_b_buf;

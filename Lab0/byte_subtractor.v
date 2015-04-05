@@ -3,9 +3,15 @@ module byte_subtractor(byte_a, byte_b, byte_borrow_in, byte_diff, byte_borrow_ou
 input [DATA_WIDTH-1:0] byte_a;
 input [DATA_WIDTH-1:0] byte_b;
 input byte_borrow_in;
+input start;
 
 output [DATA_WIDTH-1:0] byte_diff;
 output byte_borrow_out;
+output done;
+
+reg [DATA_WIDTH-1:0] byte_diff;
+reg byte_borrow_out;
+reg done;
 
 wire [DATA_WIDTH:0] borrow_buf;
 

@@ -12,3 +12,5 @@ output done;
 assign bit_diff = (bit_a ^ bit_b) ^ bit_borrow_in;
 assign bit_borrow_out = ((~bit_a & bit_borrow_in) | (~bit_a & bit_b) | (bit_b & bit_borrow_in));
 assign done = start;
+
+endmodule
