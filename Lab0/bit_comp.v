@@ -8,4 +8,8 @@ output bit_comp_out;
 output done;
 
 assign bit_comp_out = bit_a ^~ bit_b;
+<<<<<<< HEAD
 assign done = start;
+=======
+assign done = start;
+>>>>>>> parent of 7e75e3e... commit

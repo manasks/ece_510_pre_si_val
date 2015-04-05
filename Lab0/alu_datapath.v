@@ -10,6 +10,20 @@ output alu_done;
 output result;
 output overflow;
 
+<<<<<<< HEAD
+=======
+wire clk;
+wire [DATA_WIDTH-1:0] alu_data;
+wire [1:0] opcode_value;
+wire store_a;
+wire store_b;
+wire start;
+
+reg alu_done;
+reg [DATA_WIDTH-1:0] result;
+reg overflow;
+
+>>>>>>> parent of 7e75e3e... commit
 parameter ON 		= 1'b1;
 parameter OFF 		= 1'b0;
 parameter ADD 		= 2'b00;
@@ -157,4 +171,8 @@ end
 			.byte_comp(comp_comp),
 			.start(start),
 			.done(done)
+<<<<<<< HEAD
 	);
+=======
+	);
+>>>>>>> parent of 7e75e3e... commit

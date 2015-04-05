@@ -4,7 +4,13 @@ input [DATA_WIDTH-1] byte_a;
 input [DATA_WIDTH-1] byte_b;
 input byte_borrow_in;
 
+<<<<<<< HEAD
 output [DATA_WIDTH-1] byte_parity;
+=======
+output [DATA_WIDTH-1:0] byte_parity;
+
+genvar i;
+>>>>>>> parent of 7e75e3e... commit
 
 generate
 	for (i=0; i<DATA_WIDTH; i=i+1)

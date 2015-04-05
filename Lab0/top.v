@@ -5,12 +5,21 @@ reg clk;
 initial 
 begin 
 	clk = 0; 
+<<<<<<< HEAD
 	reset = 0; 
 	enable = 0; 
 end 
  
 always 
 	#10ns  clk =  ! clk; 
+=======
+end 
+ 
+always
+begin
+    #10 clk = !clk; 
+end
+>>>>>>> parent of 7e75e3e... commit
 
 wire reset_n_wire;
 wire opcode_valid_wire;

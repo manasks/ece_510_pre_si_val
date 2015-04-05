@@ -288,4 +288,8 @@ end
 			.alu_done(alu_done),
 			.result(result_def),
 			.overflow(overflow_def)
+<<<<<<< HEAD
 	);
+=======
+	);
+>>>>>>> parent of 7e75e3e... commit
