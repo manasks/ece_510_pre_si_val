@@ -12,7 +12,6 @@ output overflow;
 
 parameter ON 		= 1'b1;
 parameter OFF 		= 1'b0;
-parameter DATA_WIDTH 	= 8;
 parameter ADD 		= 2'b00;
 parameter SUB 		= 2'b01;
 parameter PAR 		= 2'b10;
