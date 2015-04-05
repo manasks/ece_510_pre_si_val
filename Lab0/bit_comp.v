@@ -1,4 +1,4 @@
-module bit_comp(bit_a, bit_b, bit_comp_out, start, done)
+module bit_comp(bit_a, bit_b, bit_comp_out, start, done);
 
 input bit_a;
 input bit_b;

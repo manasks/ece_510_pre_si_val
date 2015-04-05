@@ -1,4 +1,4 @@
-module bit_parity(bit_a, bit_b, bit_parity_out, start, done)
+module bit_parity(bit_a, bit_b, bit_parity_out, start, done);
 
 input bit_a;
 input bit_b;

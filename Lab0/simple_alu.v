@@ -10,7 +10,14 @@ output done;
 output [DATA_WIDTH-1:0] result;
 output overflow;
 
+wire clk;
+wire reset_n;
+wire opcode;
+wire opcode_valid;
 
+reg [DATA_WIDTH-1:0] result;
+reg done;
+reg overflow;
 
 parameter ON = 1'b1;
 parameter OFF = 1'b0;
@@ -38,7 +45,9 @@ reg [DATA_WIDTH-1:0] A_Data, B_Data;
 reg [1:0] opcode_def;
 reg [1:0] opcode_buf;
 reg store_a, store_b;
+reg store_a_def, store_b_def;
 reg start, alu_done;
+reg result_def;
 
 assign done = alu_done;
 
@@ -116,7 +125,7 @@ begin
 						NextState = PAR;
 					end
 					
-					COMP
+					COMP:
 					begin
 						NextState = COMP;
 					end				

@@ -1,19 +1,23 @@
-module byte_comp(byte_a, byte_b, byte_comp, start, done)
+module byte_comp(byte_a, byte_b, byte_comp, start, done);
 
-input [DATA_WIDTH-1] byte_a;
-input [DATA_WIDTH-1] byte_b;
+input [DATA_WIDTH-1:0] byte_a;
+input [DATA_WIDTH-1:0] byte_b;
 input byte_borrow_in;
 
-output [DATA_WIDTH-1] byte_comp;
+output [DATA_WIDTH-1:0] byte_comp;
+
+genvar i;
 
 generate
 	for (i=0; i<DATA_WIDTH; i=i+1)
 	begin:
-		bit_comp bit_comp[i] (
+		bit_comp bit_comp (
 				.bit_a(byte_a[i]),
 				.bit_b(byte_b[i]),
 				.bit_comp(byte_comp[i]),
 				.start(start),
 				.done(done)
 		);
+    end
 endgenerate
+endmodule

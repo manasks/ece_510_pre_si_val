@@ -5,12 +5,12 @@ reg clk;
 initial 
 begin 
 	clk = 0; 
-	reset = 0; 
-	enable = 0; 
 end 
  
-always 
-	#10ns  clk =  ! clk; 
+always
+begin
+    #10 clk = !clk; 
+end
 
 wire reset_n_wire;
 wire opcode_valid_wire;
@@ -44,3 +44,4 @@ wire overflow_wire;
 
 
 endmodule
+

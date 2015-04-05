@@ -10,6 +10,17 @@ output alu_done;
 output result;
 output overflow;
 
+wire clk;
+wire [DATA_WIDTH-1:0] alu_data;
+wire [1:0] opcode_value;
+wire store_a;
+wire store_b;
+wire start;
+
+reg alu_done;
+reg [DATA_WIDTH-1:0] result;
+reg overflow;
+
 parameter ON 		= 1'b1;
 parameter OFF 		= 1'b0;
 parameter ADD 		= 2'b00;
@@ -53,7 +64,7 @@ begin
 	end
 	else if(start)
 	begin
-		case(opcode_value):
+		case(opcode_value)
 			ADD:
 			begin
 				add_a = buf_a;
@@ -65,7 +76,7 @@ begin
 			begin
 				sub_a = buf_a;
 				sub_b = buf_b;
-				sub_borrow_in = 1'b0
+				sub_borrow_in = 1'b0;
 			end
 		
 			PAR:
@@ -87,7 +98,7 @@ always @(posedge clk)
 begin
     if(done)
 	begin
-        case(opcode_value):
+        case(opcode_value)
 			ADD:
 			begin
 				result 	= add_sum;
@@ -141,7 +152,7 @@ end
 			.byte_borrow_out(sub_borrow_out),
 			.start(start),
 			.done(done)
-	};
+	);
 	
 	byte_parity #(DATA_WIDTH) parity_ex(
 			.byte_a(par_a),
