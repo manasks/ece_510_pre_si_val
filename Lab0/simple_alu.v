@@ -12,6 +12,10 @@ output done;
 output [DATA_WIDTH-1:0] result;
 output overflow;
 
+reg done;
+reg [DATA_WIDTH-1:0] result;
+reg overflow;
+
 parameter ON = 1'b1;
 parameter OFF = 1'b0;
 
@@ -27,11 +31,11 @@ parameter
     COMP    = 4'b0111,
     DONE    = 4'b1000;
 
-parameter
-    ADD     = 2'b00,
-    SUB     = 2'b01,
-    PAR     = 2'b10,
-    COMP    = 2'b11;
+//parameter
+//    ADD     = 2'b00,
+//    SUB     = 2'b01,
+//    PAR     = 2'b10,
+//    COMP    = 2'b11;
 
 reg [3:0] State, NextState;
 reg [DATA_WIDTH-1:0] A_Data, B_Data;
@@ -40,8 +44,6 @@ reg [DATA_WIDTH-1:0] store_a_def, store_b_def, result_def;
 reg [1:0] opcode_buf;
 reg store_a, store_b;
 reg start, alu_done;
-
-assign done = alu_done;
 
 always @(posedge clk,reset_n)
 begin
