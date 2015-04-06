@@ -13,11 +13,11 @@ genvar i;
 
 generate
 	for (i=0; i<DATA_WIDTH; i=i+1)
-	begin:
-		bit_parity bit_parity (
+	begin
+		bit_parity parity (
 				.bit_a(byte_a[i]),
 				.bit_b(byte_b[i]),
-				.bit_parity(byte_parity[i]),
+				.bit_parity_out(byte_parity[i]),
 				.start(start),
 				.done(done)
 		);

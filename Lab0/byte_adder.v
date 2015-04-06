@@ -11,9 +11,7 @@ output [DATA_WIDTH-1:0] byte_sum;
 output byte_overflow;
 output done;
 
-reg [DATA_WIDTH-1:0] byte_sum;
 wire byte_overflow;
-reg done;
 
 wire [DATA_WIDTH:0] carry_buf;
 
@@ -28,17 +26,17 @@ assign byte_overflow = carry_buf[DATA_WIDTH];
 genvar i;
 
     generate
-	    for (i=0; i<DATA_WIDTH; i=i+1)
-	    begin:
-		    bit_adder adder (
-			    	.bit_a(byte_a_buf[i]),
-				    .bit_b(byte_b_buf[i]),
-				    .bit_carry_in(carry_buf[i]),
-				    .bit_sum(byte_sum[i]),
-			    	.bit_carry_out(carry_buf[i+1]),
-			    	.start(start),
-			    	.done(done)
-		    );
+        for (i=1; i<=DATA_WIDTH; i=i+1)
+        begin
+	        bit_adder adder (
+		    	.bit_a(byte_a_buf[i-1]),
+			    .bit_b(byte_b_buf[i-1]),
+			    .bit_carry_in(carry_buf[i-1]),
+			    .bit_sum(byte_sum[i-1]),
+		    	.bit_carry_out(carry_buf[i]),
+		    	.start(start),
+		    	.done(done)
+	        );
         end
     endgenerate
 

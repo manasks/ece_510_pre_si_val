@@ -13,11 +13,11 @@ genvar i;
 
 generate
 	for (i=0; i<DATA_WIDTH; i=i+1)
-	begin:
-		bit_comp bit_comp (
+	begin
+		bit_comp comp (
 				.bit_a(byte_a[i]),
 				.bit_b(byte_b[i]),
-				.bit_comp(byte_comp[i]),
+				.bit_comp_out(byte_comp[i]),
 				.start(start),
 				.done(done)
 		);

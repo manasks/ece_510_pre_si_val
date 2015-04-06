@@ -13,6 +13,8 @@ output alu_done;
 output result;
 output overflow;
 
+reg overflow;
+
 wire clk;
 wire [DATA_WIDTH-1:0] alu_data;
 wire [1:0] opcode_value;
@@ -22,7 +24,6 @@ wire start;
 
 reg alu_done;
 reg [DATA_WIDTH-1:0] result;
-reg overflow;
 
 parameter ON 		= 1'b1;
 parameter OFF 		= 1'b0;
@@ -33,27 +34,27 @@ parameter COMP 		= 2'b11;
 
 reg [DATA_WIDTH-1:0] buf_a;
 reg [DATA_WIDTH-1:0] buf_b;
-reg done;
+wire done;
 
 reg [DATA_WIDTH-1:0] add_a;
 reg [DATA_WIDTH-1:0] add_b;
-reg [DATA_WIDTH-1:0] add_sum;
+wire [DATA_WIDTH-1:0] add_sum;
 reg add_carry_in;
-reg add_overflow;
+wire add_overflow;
 
 reg [DATA_WIDTH-1:0] sub_a;
 reg [DATA_WIDTH-1:0] sub_b;
-reg [DATA_WIDTH-1:0] sub_diff;
+wire [DATA_WIDTH-1:0] sub_diff;
 reg sub_borrow_in;
-reg sub_borrow_out;
+wire sub_borrow_out;
 
 reg [DATA_WIDTH-1:0] par_a;
 reg [DATA_WIDTH-1:0] par_b;
-reg [DATA_WIDTH-1:0] par_parity;
+wire [DATA_WIDTH-1:0] par_parity;
 
 reg [DATA_WIDTH-1:0] comp_a;
 reg [DATA_WIDTH-1:0] comp_b;
-reg [DATA_WIDTH-1:0] comp_comp;
+wire [DATA_WIDTH-1:0] comp_comp;
 
 always @(posedge clk)
 begin

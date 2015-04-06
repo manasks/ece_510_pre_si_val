@@ -25,8 +25,8 @@ genvar i;
 
 generate
 	for (i=0; i<DATA_WIDTH; i=i+1)
-	begin:
-		bit_subtractor bit_subtractor (
+	begin
+		bit_subtractor subtractor (
 				.bit_a(byte_a[i]),
 				.bit_b(byte_b[i]),
 				.bit_borrow_in(borrow_buf[i]),

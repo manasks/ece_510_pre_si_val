@@ -14,7 +14,6 @@ output overflow;
 
 reg done;
 reg [DATA_WIDTH-1:0] result;
-reg overflow;
 
 parameter ON = 1'b1;
 parameter OFF = 1'b0;
@@ -40,10 +39,12 @@ parameter
 reg [3:0] State, NextState;
 reg [DATA_WIDTH-1:0] A_Data, B_Data;
 reg [1:0] opcode_def;
-reg [DATA_WIDTH-1:0] store_a_def, store_b_def, result_def;
+reg store_a_def, store_b_def;
+wire [DATA_WIDTH-1:0] result_def;
 reg [1:0] opcode_buf;
 reg store_a, store_b;
-reg start, alu_done;
+reg start;
+wire alu_done;
 
 always @(posedge clk,reset_n)
 begin
@@ -58,8 +59,9 @@ begin
 end
 
 
-always @(State,opcode_valid,opcode,reset_n)
+always @(State,opcode_valid,opcode,reset_n,alu_done)
 begin
+    //$display("\n State: %h", State);
     case(State)
         RESET:
         begin
@@ -78,12 +80,12 @@ begin
 			if(opcode_valid)
 			begin
 				NextState = DATA_A;
-				opcode_buf[0] = opcode;
+                opcode_buf[0] = opcode;
 			end
 			else
+            begin    
 				NextState = IDLE;
-			begin
-			end
+		    end
         end
 
         DATA_A:
@@ -91,7 +93,7 @@ begin
 			if(opcode_valid)
 			begin
 				NextState = DATA_B;
-				opcode_buf[1] = opcode;
+                opcode_buf[1] = opcode;
 			end
 			else
 			begin
@@ -101,25 +103,26 @@ begin
 
         DATA_B:
         begin
+            //$display("\n opcode: %h \t opcode_valid: %h \t Reset_n: %h \t opcode_buf: %h",opcode, opcode_valid, reset_n, opcode_buf);
 			if(opcode_valid)
 			begin
 				case(opcode_buf)
-					ADD:
+					2'b00:
 					begin
 						NextState = ADD;
 					end
 					
-					SUB:
+					2'b01:
 					begin
 						NextState = SUB;
 					end
 					
-					PAR:
+					2'b10:
 					begin
 						NextState = PAR;
 					end
 					
-					COMP:
+					2'b11:
 					begin
 						NextState = COMP;
 					end				
@@ -133,6 +136,7 @@ begin
 
         ADD:
         begin
+            //$display("\n opcode: %h \t opcode_valid: %h \t Reset_n: %h \t ADD \t alu_done: %h",opcode, opcode_valid, reset_n, alu_done);
 			if(alu_done)
 			begin
 				NextState = DONE;
@@ -145,6 +149,7 @@ begin
 
         SUB:
         begin
+            //$display("\n opcode: %h \t opcode_valid: %h \t Reset_n: %h",opcode, opcode_valid, reset_n);
 			if(alu_done)
 			begin
 				NextState = DONE;
@@ -157,6 +162,7 @@ begin
 
         PAR:
         begin
+            //$display("\n opcode: %h \t opcode_valid: %h \t Reset_n: %h",opcode, opcode_valid, reset_n);
 			if(alu_done)
 			begin
 				NextState = DONE;
@@ -169,6 +175,7 @@ begin
 
         COMP:
         begin
+            //$display("\n opcode: %h \t opcode_valid: %h \t Reset_n: %h",opcode, opcode_valid, reset_n);
 			if(alu_done)
 			begin
 				NextState = DONE;
@@ -181,6 +188,7 @@ begin
 
         DONE:
         begin
+            //$display("\n opcode: %h \t opcode_valid: %h \t Reset_n: %h",opcode, opcode_valid, reset_n);
 			NextState = IDLE;
         end
 	endcase
@@ -191,7 +199,7 @@ begin
     case(State)
         RESET:
         begin
-			store_a_def = OFF;
+            store_a_def = OFF;
 			store_b_def = OFF;
 			opcode_def = ADD;
 			start = OFF;
@@ -213,7 +221,6 @@ begin
         begin
 			store_a_def = ON;
 			store_b_def = OFF;
-			opcode_def = opcode_buf;
 			start = OFF;
 			result = 0;
 			done = OFF;
@@ -223,7 +230,6 @@ begin
         begin
 			store_a_def = OFF;
 			store_b_def = ON;
-			opcode_def = opcode_buf;
 			start = OFF;
 			result = 0;
 			done = OFF;
@@ -234,7 +240,7 @@ begin
 			store_a_def = OFF;
 			store_b_def = OFF;
 			opcode_def = ADD;
-			start = ON;
+			start = 1'b1;
 			result = 0;
 			done = OFF;
         end
@@ -294,3 +300,4 @@ end
 	);
 
 endmodule
+
