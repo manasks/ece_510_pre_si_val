@@ -30,7 +30,7 @@ genvar i;
     generate
 	    for (i=0; i<DATA_WIDTH; i=i+1)
 	    begin:
-		    bit_adder bit_adder (
+		    bit_adder adder (
 			    	.bit_a(byte_a_buf[i]),
 				    .bit_b(byte_b_buf[i]),
 				    .bit_carry_in(carry_buf[i]),

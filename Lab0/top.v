@@ -1,15 +1,17 @@
 module top();
 
-reg clk;
+reg clk_def;
+
+parameter DATA_WIDTH = 8;
 
 initial 
 begin 
-	clk = 0; 
+	clk_def = 0; 
 end 
  
 always
 begin
-    #10 clk = !clk; 
+    #10 clk_def = !clk_def; 
 end
 
 wire reset_n_wire;
@@ -21,7 +23,7 @@ wire [DATA_WIDTH-1:0] result_wire;
 wire overflow_wire;
 
 	simple_alu alu(
-			.clk(clk),
+			.clk(clk_def),
 			.reset_n(reset_n_wire),
 			.opcode_valid(opcode_valid_wire),
 			.opcode(opcode_wire),
@@ -31,15 +33,15 @@ wire overflow_wire;
 			.overflow(overflow_wire)
 	);
 		
-	alu_test test(
-		clk(clk),
-		reset_n(reset_n_wire),
-		opcode_valid(opcode_valid_wire),
-		opcode(opcode_wire),
-		data(data_wire),
-		done(done_wire),
-		overflow(overflow_wire),
-		result(result_wire)
+	alu_test #(DATA_WIDTH) test(
+		.clk(clk_def),
+		.reset_n(reset_n_wire),
+		.opcode_valid(opcode_valid_wire),
+		.opcode(opcode_wire),
+		.data(data_wire),
+		.done(done_wire),
+		.overflow(overflow_wire),
+		.result(result_wire)
     );
 
 
