@@ -1,4 +1,4 @@
-module alu_datapath(clk, alu_data, opcode_value, store_a, store_b, start, alu_done, result, overflow);
+module alu_datapath(clk, alu_data, opcode_value, store_a, store_b, start, alu_done, result, overflow_def);
 
 parameter DATA_WIDTH = 8;
 
@@ -11,9 +11,9 @@ input start;
 
 output alu_done;
 output result;
-output overflow;
+output overflow_def;
 
-reg overflow;
+reg overflow_def;
 
 wire clk;
 wire [DATA_WIDTH-1:0] alu_data;
@@ -23,6 +23,7 @@ wire store_b;
 wire start;
 
 reg alu_done;
+reg start_def;
 reg [DATA_WIDTH-1:0] result;
 
 parameter ON 		= 1'b1;
@@ -56,7 +57,7 @@ reg [DATA_WIDTH-1:0] comp_a;
 reg [DATA_WIDTH-1:0] comp_b;
 wire [DATA_WIDTH-1:0] comp_comp;
 
-always @(posedge clk)
+always @(posedge clk or store_a or store_b or start)
 begin
     if(store_a)
     begin
@@ -68,12 +69,14 @@ begin
 	end
 	else if(start)
 	begin
-		case(opcode_value)
+		//$display("\n 1. Opcode: %h",opcode_value);
+        case(opcode_value)
 			ADD:
 			begin
 				add_a = buf_a;
 				add_b = buf_b;
 				add_carry_in = 1'b0;
+                start_def = 1'b1;
 			end
 			
 			SUB:
@@ -81,39 +84,45 @@ begin
 				sub_a = buf_a;
 				sub_b = buf_b;
 				sub_borrow_in = 1'b0;
+                start_def = 1'b1;
 			end
 		
 			PAR:
 			begin
 				par_a = buf_a;
 				par_b = buf_b;
+                start_def = 1'b1;
 			end
 			
 			COMP:
 			begin
 				comp_a = buf_a;
 				comp_b = buf_b;
+                start_def = 1'b1;
 			end
 		endcase
 	end
 end
 
-always @(posedge clk)
+always @(posedge clk or done)
 begin
     if(done)
 	begin
+        //$display("\n add_overflow:%h \t overflow_def: %h", add_overflow, overflow_def);
+        //$display("\n 2. Opcode: %h",opcode_value);
         case(opcode_value)
 			ADD:
 			begin
 				result 	= add_sum;
-				overflow = add_overflow;
+				overflow_def = add_overflow;
 				alu_done = ON;
 			end
 			
 			SUB:
 			begin
-				result = sub_diff;
-				overflow = sub_borrow_out;
+				//$display("\n sub_borrow_out: %h",sub_borrow_out);
+                result = sub_diff;
+				overflow_def = sub_borrow_out;
 				alu_done = ON;
 			end
 		
@@ -121,19 +130,21 @@ begin
 			begin
 				result = par_parity;
 				alu_done = ON;
+                overflow_def = OFF;
 			end
 			
 			COMP:
 			begin
 				result = comp_comp;
 				alu_done = ON;
+                overflow_def = OFF;
 			end
 		endcase
 	end
 	else
 	begin
 		result = 0;
-		overflow = 0;
+		overflow_def = 0;
 		alu_done = OFF;
 	end
 end
@@ -144,7 +155,7 @@ end
 			.byte_carry_in(add_carry_in),
 			.byte_sum(add_sum),
 			.byte_overflow(add_overflow),
-			.start(start),
+			.start(start_def),
 			.done(done)
 	);
 
@@ -154,7 +165,7 @@ end
 			.byte_borrow_in(sub_borrow_in),
 			.byte_diff(sub_diff),
 			.byte_borrow_out(sub_borrow_out),
-			.start(start),
+			.start(start_def),
 			.done(done)
 	);
 	
@@ -162,7 +173,7 @@ end
 			.byte_a(par_a),
 			.byte_b(par_b),
 			.byte_parity(par_parity),
-			.start(start),
+			.start(start_def),
 			.done(done)
 	);
 
@@ -170,7 +181,7 @@ end
 			.byte_a(comp_a),
 			.byte_b(comp_b),
 			.byte_comp(comp_comp),
-			.start(start),
+			.start(start_def),
 			.done(done)
 	);
 

@@ -12,6 +12,10 @@ output done;
 output [DATA_WIDTH-1:0] result;
 output overflow;
 
+reg overflow;
+
+wire overflow_buf;
+
 reg done;
 reg [DATA_WIDTH-1:0] result;
 
@@ -45,6 +49,8 @@ reg [1:0] opcode_buf;
 reg store_a, store_b;
 reg start;
 wire alu_done;
+
+//assign overflow = overflow_buf;
 
 always @(posedge clk,reset_n)
 begin
@@ -205,6 +211,7 @@ begin
 			start = OFF;
 			result = 0;
 			done = OFF;
+            overflow = OFF;
         end
 
         IDLE:
@@ -215,6 +222,7 @@ begin
 			start = OFF;
 			result = 0;
 			done = OFF;
+            overflow = OFF;
         end
 
         DATA_A:
@@ -224,6 +232,7 @@ begin
 			start = OFF;
 			result = 0;
 			done = OFF;
+            overflow = OFF;
         end
 
         DATA_B:
@@ -233,6 +242,7 @@ begin
 			start = OFF;
 			result = 0;
 			done = OFF;
+            overflow = OFF;
         end
 
         ADD:
@@ -243,6 +253,7 @@ begin
 			start = 1'b1;
 			result = 0;
 			done = OFF;
+            overflow = OFF;
         end
 
         SUB:
@@ -253,6 +264,7 @@ begin
 			start = ON;
 			result = 0;
 			done = OFF;
+            overflow = OFF;
         end
 
         PAR:
@@ -263,6 +275,7 @@ begin
 			start = ON;
 			result = 0;
 			done = OFF;
+            overflow = OFF;
         end
 
         COMP:
@@ -273,6 +286,7 @@ begin
 			start = ON;
 			result = 0;
 			done = OFF;
+            overflow = OFF;
         end
 
         DONE:
@@ -283,6 +297,8 @@ begin
 			start = OFF;
 			result = result_def;
 			done = ON;
+            overflow = overflow_buf;
+            //$display("\n Overflow: %h",overflow_buf);
         end
 	endcase
 end
@@ -296,7 +312,7 @@ end
 			.start(start),
 			.alu_done(alu_done),
 			.result(result_def),
-			.overflow(overflow)
+			.overflow_def(overflow_buf)
 	);
 
 endmodule
