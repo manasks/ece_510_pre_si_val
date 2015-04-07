@@ -70,6 +70,7 @@ begin
 	else if(start)
 	begin
 		//$display("\n 1. Opcode: %h",opcode_value);
+		//$display("\n buf_a: %h \t buf_b: %h",buf_a, buf_b);
         case(opcode_value)
 			ADD:
 			begin
@@ -113,6 +114,7 @@ begin
         case(opcode_value)
 			ADD:
 			begin
+				//$display("ADD");
 				result 	= add_sum;
 				overflow_def = add_overflow;
 				alu_done = ON;
@@ -121,6 +123,7 @@ begin
 			SUB:
 			begin
 				//$display("\n sub_borrow_out: %h",sub_borrow_out);
+				//$display("SUB");
                 result = sub_diff;
 				overflow_def = sub_borrow_out;
 				alu_done = ON;
@@ -128,15 +131,21 @@ begin
 		
 			PAR:
 			begin
-				result = par_parity;
-				alu_done = ON;
+				//$display("PARITY");
+                result = par_parity;
+				//result = par_a ^ par_b;
+                //$display("\n par_a: %h \t par_b: %h \t result: %h \t result: %h", par_a, par_b, result, (par_a ~^ par_b));
+                alu_done = ON;
                 overflow_def = OFF;
 			end
 			
 			COMP:
 			begin
-				result = comp_comp;
-				alu_done = ON;
+				//$display("COMP");
+				//result = comp_comp;
+				result = comp_a ^~ comp_b;
+                //$display("\n comp_a: %h \t comp_b: %h \t result: %h \t result: %h", comp_a, comp_b, result, (comp_a ~^ comp_b));
+                alu_done = ON;
                 overflow_def = OFF;
 			end
 		endcase

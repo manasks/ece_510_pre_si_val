@@ -52,7 +52,7 @@ wire alu_done;
 
 //assign overflow = overflow_buf;
 
-always @(posedge clk,reset_n)
+always @(posedge clk or reset_n)
 begin
     if(!reset_n)
 	begin
@@ -64,8 +64,7 @@ begin
 	end
 end
 
-
-always @(State,opcode_valid,opcode,reset_n,alu_done)
+always @(State or opcode_valid or reset_n or alu_done)
 begin
     //$display("\n State: %h", State);
     case(State)
@@ -74,7 +73,7 @@ begin
 			if(reset_n)
 			begin
 				NextState = IDLE;
-			end
+            end
 			else
 			begin
 				NextState = RESET;
@@ -85,8 +84,9 @@ begin
         begin
 			if(opcode_valid)
 			begin
-				NextState = DATA_A;
+                NextState = DATA_A;
                 opcode_buf[0] = opcode;
+                //$display("\n Opcode: %h",opcode);
 			end
 			else
             begin    
@@ -100,6 +100,7 @@ begin
 			begin
 				NextState = DATA_B;
                 opcode_buf[1] = opcode;
+                //$display("\n Opcode: %h",opcode);
 			end
 			else
 			begin
@@ -216,7 +217,7 @@ begin
 
         IDLE:
         begin
-			store_a_def = OFF;
+			store_a_def = ON;
 			store_b_def = OFF;
 			opcode_def = ADD;
 			start = OFF;
@@ -227,8 +228,8 @@ begin
 
         DATA_A:
         begin
-			store_a_def = ON;
-			store_b_def = OFF;
+			store_a_def = OFF;
+			store_b_def = ON;
 			start = OFF;
 			result = 0;
 			done = OFF;
@@ -238,7 +239,7 @@ begin
         DATA_B:
         begin
 			store_a_def = OFF;
-			store_b_def = ON;
+			store_b_def = OFF;
 			start = OFF;
 			result = 0;
 			done = OFF;

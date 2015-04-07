@@ -9,6 +9,10 @@ input start;
 output [DATA_WIDTH-1:0] byte_comp;
 output done;
 
+//assign byte_comp = byte_a ^~ byte_b;
+//assign done = start;
+
+
 genvar i;
 
 generate

@@ -9,6 +9,9 @@ input start;
 output [DATA_WIDTH-1:0] byte_parity;
 output done;
 
+//assign byte_parity = byte_a ^ byte_b;
+//assign done = start;
+
 genvar i;
 
 generate
