@@ -50,8 +50,6 @@ reg store_a, store_b;
 reg start;
 wire alu_done;
 
-//assign overflow = overflow_buf;
-
 always @(posedge clk or reset_n)
 begin
     if(!reset_n)
@@ -66,7 +64,6 @@ end
 
 always @(State or opcode_valid or reset_n or alu_done)
 begin
-    //$display("\n State: %h", State);
     case(State)
         RESET:
         begin
@@ -86,7 +83,6 @@ begin
 			begin
                 NextState = DATA_A;
                 opcode_buf[0] = opcode;
-                //$display("\n Opcode: %h",opcode);
 			end
 			else
             begin    
@@ -100,7 +96,6 @@ begin
 			begin
 				NextState = DATA_B;
                 opcode_buf[1] = opcode;
-                //$display("\n Opcode: %h",opcode);
 			end
 			else
 			begin
@@ -110,7 +105,6 @@ begin
 
         DATA_B:
         begin
-            //$display("\n opcode: %h \t opcode_valid: %h \t Reset_n: %h \t opcode_buf: %h",opcode, opcode_valid, reset_n, opcode_buf);
 			if(opcode_valid)
 			begin
 				case(opcode_buf)
@@ -143,7 +137,6 @@ begin
 
         ADD:
         begin
-            //$display("\n opcode: %h \t opcode_valid: %h \t Reset_n: %h \t ADD \t alu_done: %h",opcode, opcode_valid, reset_n, alu_done);
 			if(alu_done)
 			begin
 				NextState = DONE;
@@ -156,7 +149,6 @@ begin
 
         SUB:
         begin
-            //$display("\n opcode: %h \t opcode_valid: %h \t Reset_n: %h",opcode, opcode_valid, reset_n);
 			if(alu_done)
 			begin
 				NextState = DONE;
@@ -169,7 +161,6 @@ begin
 
         PAR:
         begin
-            //$display("\n opcode: %h \t opcode_valid: %h \t Reset_n: %h",opcode, opcode_valid, reset_n);
 			if(alu_done)
 			begin
 				NextState = DONE;
@@ -182,7 +173,6 @@ begin
 
         COMP:
         begin
-            //$display("\n opcode: %h \t opcode_valid: %h \t Reset_n: %h",opcode, opcode_valid, reset_n);
 			if(alu_done)
 			begin
 				NextState = DONE;
@@ -195,7 +185,6 @@ begin
 
         DONE:
         begin
-            //$display("\n opcode: %h \t opcode_valid: %h \t Reset_n: %h",opcode, opcode_valid, reset_n);
 			NextState = IDLE;
         end
 	endcase
@@ -299,7 +288,6 @@ begin
 			result = result_def;
 			done = ON;
             overflow = overflow_buf;
-            //$display("\n Overflow: %h",overflow_buf);
         end
 	endcase
 end
