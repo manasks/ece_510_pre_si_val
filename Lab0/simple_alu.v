@@ -296,7 +296,7 @@ end
 			.start(start),
 			.alu_done(alu_done),
 			.result(result_def),
-			.overflow(overflow_def)
+			.overflow(overflow)
 	);
 
 endmodule
