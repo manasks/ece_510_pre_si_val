@@ -50,6 +50,8 @@ reg store_a, store_b;
 reg start;
 wire alu_done;
 
+reg first;
+
 always @(posedge clk or reset_n)
 begin
     if(!reset_n)
@@ -82,7 +84,6 @@ begin
 			if(opcode_valid)
 			begin
                 NextState = DATA_A;
-                opcode_buf[0] = opcode;
 			end
 			else
             begin    
@@ -95,7 +96,7 @@ begin
 			if(opcode_valid)
 			begin
 				NextState = DATA_B;
-                opcode_buf[1] = opcode;
+                opcode_buf[0] = opcode;
 			end
 			else
 			begin
@@ -105,7 +106,9 @@ begin
 
         DATA_B:
         begin
-			if(opcode_valid)
+		    opcode_buf[1] = opcode;
+            $display("Opcode: %h", opcode_buf);
+            if(opcode_valid)
 			begin
 				case(opcode_buf)
 					2'b00:
@@ -206,8 +209,8 @@ begin
 
         IDLE:
         begin
-			store_a_def = ON;
-			store_b_def = OFF;
+			store_a_def = OFF;
+            store_b_def = OFF;
 			opcode_def = ADD;
 			start = OFF;
 			result = 0;
@@ -217,9 +220,9 @@ begin
 
         DATA_A:
         begin
-			store_a_def = OFF;
-			store_b_def = ON;
-			start = OFF;
+            store_a_def = ON;
+			store_b_def = OFF;
+            start = OFF;
 			result = 0;
 			done = OFF;
             overflow = OFF;
@@ -228,8 +231,8 @@ begin
         DATA_B:
         begin
 			store_a_def = OFF;
-			store_b_def = OFF;
-			start = OFF;
+			store_b_def = ON;
+            start = OFF;
 			result = 0;
 			done = OFF;
             overflow = OFF;

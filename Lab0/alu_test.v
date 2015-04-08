@@ -32,7 +32,7 @@ module alu_test
 
    // Define parameters
    parameter RESET_DURATION = 500;
-   parameter CYCLE_TO_LATCH_FIRST_DATA = 1;
+   parameter CYCLE_TO_LATCH_FIRST_DATA = 2;
    parameter OPCODE_ADD = 2'b00;
    parameter OPCODE_SUB = 2'b01;
    parameter OPCODE_PAR = 2'b10;

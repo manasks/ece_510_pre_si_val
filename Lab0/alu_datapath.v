@@ -69,8 +69,6 @@ begin
 	end
 	else if(start)
 	begin
-		//$display("\n 1. Opcode: %h",opcode_value);
-		//$display("\n buf_a: %h \t buf_b: %h",buf_a, buf_b);
         case(opcode_value)
 			ADD:
 			begin
@@ -109,12 +107,9 @@ always @(posedge clk or done)
 begin
     if(done)
 	begin
-        //$display("\n add_overflow:%h \t overflow_def: %h", add_overflow, overflow_def);
-        //$display("\n 2. Opcode: %h",opcode_value);
         case(opcode_value)
 			ADD:
 			begin
-				//$display("ADD");
 				result 	= add_sum;
 				overflow_def = add_overflow;
 				alu_done = ON;
@@ -122,8 +117,6 @@ begin
 			
 			SUB:
 			begin
-				//$display("\n sub_borrow_out: %h",sub_borrow_out);
-				//$display("SUB");
                 result = sub_diff;
 				overflow_def = sub_borrow_out;
 				alu_done = ON;
@@ -131,20 +124,14 @@ begin
 		
 			PAR:
 			begin
-				//$display("PARITY");
                 result = par_parity;
-				//result = par_a ^ par_b;
-                //$display("\n par_a: %h \t par_b: %h \t result: %h \t result: %h", par_a, par_b, result, (par_a ~^ par_b));
                 alu_done = ON;
                 overflow_def = OFF;
 			end
 			
 			COMP:
 			begin
-				//$display("COMP");
-				//result = comp_comp;
 				result = comp_a ^~ comp_b;
-                //$display("\n comp_a: %h \t comp_b: %h \t result: %h \t result: %h", comp_a, comp_b, result, (comp_a ~^ comp_b));
                 alu_done = ON;
                 overflow_def = OFF;
 			end
