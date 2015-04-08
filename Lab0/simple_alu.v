@@ -107,7 +107,6 @@ begin
         DATA_B:
         begin
 		    opcode_buf[1] = opcode;
-            $display("Opcode: %h", opcode_buf);
             if(opcode_valid)
 			begin
 				case(opcode_buf)
