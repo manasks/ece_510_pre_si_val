@@ -1,10 +1,11 @@
-module alu_chkr(clk, reset_n, opcode_valid, data, result, overflow, done, checker_enable);
+module alu_chkr(clk, reset_n, opcode_valid, opcode, data, result, overflow, done, checker_enable);
 
 parameter DATA_WIDTH = 8;
 
 input clk;
 input reset_n;
 input opcode_valid;
+input opcode;
 input [DATA_WIDTH-1:0] data;
 input result;
 input overflow;
@@ -12,6 +13,11 @@ input done;
 input [4:0] checker_enable;
 
 reg [DATA_WIDTH:0] result_buf;
+
+reg [DATA_WIDTH-1:0] data_A;
+reg [DATA_WIDTH-1:0] data_B;
+
+reg [1:0] opcode_buf;
 
 reg chkr1_State;
 reg [1:0] chkr3_State;
@@ -53,13 +59,13 @@ begin
 		
 		chkr1_CHECK:
 		begin
-			if (data == 0 and overflow == 0 and done == 0)
+			if (!data && !overflow && !done)
 			begin
-				$display("CHECKER 1 FAILED")
+				$display("CHECKER 1 FAILED");
 			end
 			else
 			begin
-				$display("CHECKER 1 PASSED")
+				$display("CHECKER 1 PASSED");
 			end
 			chkr1_State = chkr1_RESET;
 		end
@@ -80,7 +86,7 @@ begin
 	case(chkr3_State)
 		chkr3_OPCODE1:
 		begin
-			if (opcode_valid and checker_enable[2])
+			if (opcode_valid && checker_enable[2])
 			begin
 				chkr3_State = chkr3_OPCODE2;
 			end
@@ -111,16 +117,16 @@ begin
 		begin
 			if (done)
 			begin
-				$display("CHECKER 3 PASSED")
+				$display("CHECKER 3 PASSED");
 				chkr3_State = chkr3_OPCODE1;
 			end
 			else
 			begin
-				$display("CHECKER 3 FAILED")
+				$display("CHECKER 3 FAILED");
 				chkr3_State = chkr3_OPCODE1;
 			end
 		end
-		
+	endcase	
 end
 
 //Checker 4: Once “done’ is asserted, output “result” must be correct
@@ -130,7 +136,7 @@ begin
 	case(chkr4_State)
 		chkr4_OPCODE1:
 		begin
-			if(opcode_valid and checker_enable[3])
+			if(opcode_valid && checker_enable[3])
 			begin
 				data_A = data;
 				opcode_buf[0] = opcode;
@@ -148,11 +154,11 @@ begin
 			begin
 				data_B = data;
 				opcode_buf[1] = opcode;
-				chkr4_DONE;
+				chkr4_State = chkr4_DONE;
 			end
 			else
 			begin
-				chkr4_OPCODE2;
+				chkr4_State = chkr4_OPCODE2;
 			end
 		end
 		
@@ -183,17 +189,17 @@ begin
 				endcase
 				if (result == result_buf[DATA_WIDTH-1:0])
 				begin
-					$display("CHECKER 4 PASSED")
+					$display("CHECKER 4 PASSED");
 				end
 				else
 				begin
-					$display("CHECKER 4 FAILED")
+					$display("CHECKER 4 FAILED");
 				end
-				chkr4_State = chkr4_State = OPCODE1;
+				chkr4_State = chkr4_OPCODE1;
 			end
 			else
 			begin
-				chkr4_State = chkr4_DONE;
+				chkr4_State = chkr4_OPCODE1;
 			end
 		end
 	endcase
@@ -206,7 +212,7 @@ begin
 	case(chkr5_State)
 		chkr5_OPCODE1:
 		begin
-			if(opcode_valid and checker_enable[3])
+			if(opcode_valid && checker_enable[3])
 			begin
 				data_A = data;
 				opcode_buf[0] = opcode;
@@ -224,11 +230,11 @@ begin
 			begin
 				data_B = data;
 				opcode_buf[1] = opcode;
-				chkr5_DONE;
+				chkr5_State = chkr5_DONE;
 			end
 			else
 			begin
-				chkr5_OPCODE2;
+				chkr5_State = chkr5_OPCODE2;
 			end
 		end
 		
@@ -259,18 +265,20 @@ begin
 				endcase
 				if (overflow == result_buf[DATA_WIDTH])
 				begin
-					$display("CHECKER 5 PASSED")
+					$display("CHECKER 5 PASSED");
 				end
 				else
 				begin
-					$display("CHECKER 5 FAILED")
+					$display("CHECKER 5 FAILED");
 				end
-				chkr5_State = OPCODE1;
+				chkr5_State = chkr5_OPCODE1;
 			end
 			else
 			begin
-				chkr5_State = chkr5_DONE;
+				chkr5_State = chkr5_OPCODE1;
 			end
 		end
 	endcase
 end
+
+endmodule
