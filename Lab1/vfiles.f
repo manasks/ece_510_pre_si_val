@@ -9,4 +9,5 @@ byte_comp.v
 alu_datapath.v
 simple_alu.v
 alu_test.v
+alu_chkr.v
 top.v
