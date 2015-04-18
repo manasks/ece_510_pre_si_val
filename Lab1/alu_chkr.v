@@ -89,7 +89,7 @@ end
 
 //Checker 3: Output “done” must be asserted within 2 cycles after both valid data 
 //have been captured.
-always @(posedge clk or opcode_valid or done or checker_enable[2])
+always @(posedge clk or checker_enable[2])
 begin
 	case(chkr3_State)
 		chkr3_OPCODE1:
