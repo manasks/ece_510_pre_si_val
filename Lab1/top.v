@@ -5,6 +5,7 @@ module top();
 reg clk_def;
 
 parameter DATA_WIDTH = 8;
+reg [4:0] checker_enable_reg = 5'b11111;
 
 initial 
 begin 
@@ -46,6 +47,17 @@ wire overflow_wire;
 		.result(result_wire)
     );
 
+	alu_chkr #(DATA_WIDTH) chkr(
+		.clk(clk_def),
+		.reset_n(reset_n_wire),
+		.opcode_valid(opcode_valid_wire),
+		.opcode(opcode_wire),
+		.data(data_wire),
+		.result(result_wire),
+		.overflow(overflow_wire),
+		.done(done_wire),
+		.checker_enable(checker_enable_reg)
+	);
 
 endmodule
 
