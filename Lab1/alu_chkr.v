@@ -40,15 +40,22 @@ parameter chkr5_OPCODE1 = 2'b00;
 parameter chkr5_OPCODE2 = 2'b01;
 parameter chkr5_DONE = 2'b10;
 
+initial
+begin
+    chkr1_State = chkr1_RESET;
+    chkr3_State = chkr3_OPCODE1;
+    chkr4_State = chkr4_OPCODE1;
+    chkr5_State = chkr5_OPCODE1;
+end
+
 //Checker 1: when reset_n is asserted (driven to 0), all outputs become 0
 //within 1 clock cycle.
 always @(posedge clk or reset_n or checker_enable[0])
 begin
-	$display("CHECKER1")
 	case(chkr1_State)
 		chkr1_RESET:
 		begin
-			if(reset_n)
+			if(reset_n && checker_enable[0])
 			begin
 				chkr1_State = chkr1_CHECK;
 			end
