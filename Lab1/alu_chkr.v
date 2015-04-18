@@ -18,6 +18,22 @@ reg [1:0] chkr3_State;
 reg [1:0] chkr4_State;
 reg [1:0] chkr5_State;
 
+parameter chkr1_CHECK = 1'b1;
+parameter chkr1_RESET = 1'b0
+
+parameter chkr3_OPCODE1 = 2'b00;
+parameter chkr3_OPCODE2 = 2'b01;
+parameter chkr3_COMPUTE = 2'b10;
+parameter chkr3_CHECK = 2'b11;
+
+parameter chkr4_OPCODE1 = 2'b00;
+parameter chkr4_OPCODE2 = 2'b01;
+parameter chkr4_DONE = 2'b10;
+
+parameter chkr5_OPCODE1 = 2'b00;
+parameter chkr5_OPCODE2 = 2'b01;
+parameter chkr5_DONE = 2'b10;
+
 //Checker 1: when reset_n is asserted (driven to 0), all outputs become 0
 //within 1 clock cycle.
 always @(posedge clk or reset_n or checker_enable[0])
@@ -187,36 +203,36 @@ end
 //same cycle.
 always @(posedge clk or done or overflow or checker_enable[4])
 begin
-	case(chkr4_State)
-		chkr4_OPCODE1:
+	case(chkr5_State)
+		chkr5_OPCODE1:
 		begin
 			if(opcode_valid and checker_enable[3])
 			begin
 				data_A = data;
 				opcode_buf[0] = opcode;
-				chkr4_State = chkr4_OPCODE2;
+				chkr5_State = chkr5_OPCODE2;
 			end
 			else
 			begin
-				chkr4_State = chkr4_OPCODE1;
+				chkr5_State = chkr5_OPCODE1;
 			end
 		end
 		
-		chkr4_OPCODE2:
+		chkr5_OPCODE2:
 		begin
 			if(opcode_valid)
 			begin
 				data_B = data;
 				opcode_buf[1] = opcode;
-				chkr4_DONE;
+				chkr5_DONE;
 			end
 			else
 			begin
-				chkr4_OPCODE2;
+				chkr5_OPCODE2;
 			end
 		end
 		
-		chkr4_DONE:
+		chkr5_DONE:
 		begin
 			if(done)
 			begin
@@ -249,11 +265,11 @@ begin
 				begin
 					$display("CHECKER 5 FAILED")
 				end
-				chkr4_State = chkr4_State = OPCODE1;
+				chkr5_State = OPCODE1;
 			end
 			else
 			begin
-				chkr4_State = chkr4_DONE;
+				chkr5_State = chkr5_DONE;
 			end
 		end
 	endcase
