@@ -62,7 +62,50 @@ end
 //have been captured.
 always @(posedge clk or opcode_valid or done or checker_enable[2])
 begin
-	
+	case(chkr3_State)
+		chkr3_OPCODE1:
+		begin
+			if (opcode_valid and checker_enable[2])
+			begin
+				chkr3_State = chkr3_OPCODE2;
+			end
+			else
+			begin
+				chkr3_State = chkr3_OPCODE1;
+			end
+		end
+		
+		chkr3_OPCODE2:
+		begin
+			if (opcode_valid)
+			begin
+				chkr3_State = chkr3_COMPUTE;
+			end
+			else
+			begin
+				chkr3_State = chkr3_OPCODE2;
+			end
+		end
+		
+		chkr3_COMPUTE:
+		begin
+			chkr3_State = chkr3_CHECK;
+		end
+		
+		chkr3_CHECK:
+		begin
+			if (done)
+			begin
+				$display("CHECKER 3 PASSED")
+				chkr3_State = chkr3_OPCODE1;
+			end
+			else
+			begin
+				$display("CHECKER 3 FAILED")
+				chkr3_State = chkr3_OPCODE1;
+			end
+		end
+		
 end
 
 //Checker 4: Once “done’ is asserted, output “result” must be correct
@@ -123,7 +166,7 @@ begin
 						result_buf = data_A ~^ data_B;
 					end
 				endcase
-				if (result == result_buf)
+				if (result == result_buf[DATA_WIDTH-1:0])
 				begin
 					$display("CHECKER 4 PASSED")
 				end
@@ -145,5 +188,74 @@ end
 //same cycle.
 always @(posedge clk or done or overflow or checker_enable[4])
 begin
-	
+	case(chkr4_State)
+		chkr4_OPCODE1:
+		begin
+			if(opcode_valid and checker_enable[3])
+			begin
+				data_A = data;
+				opcode_buf[0] = opcode;
+				chkr4_State = chkr4_OPCODE2;
+			end
+			else
+			begin
+				chkr4_State = chkr4_OPCODE1;
+			end
+		end
+		
+		chkr4_OPCODE2:
+		begin
+			if(opcode_valid)
+			begin
+				data_B = data;
+				opcode_buf[1] = opcode;
+				chkr4_DONE;
+			end
+			else
+			begin
+				chkr4_OPCODE2;
+			end
+		end
+		
+		chkr4_DONE:
+		begin
+			if(done)
+			begin
+				case(opcode_buf)
+					2'b00:
+					begin
+						result_buf = data_A + data_B;
+					end
+					
+					2'b01:
+					begin
+						result_buf = data_A - data_B;
+					end
+					
+					2'b10:
+					begin
+						result_buf = data_A ^ data_B;
+					end
+					
+					2'b11:
+					begin
+						result_buf = data_A ~^ data_B;
+					end
+				endcase
+				if (overflow == result_buf[DATA_WIDTH])
+				begin
+					$display("CHECKER 5 PASSED")
+				end
+				else
+				begin
+					$display("CHECKER 5 FAILED")
+				end
+				chkr4_State = chkr4_State = OPCODE1;
+			end
+			else
+			begin
+				chkr4_State = chkr4_DONE;
+			end
+		end
+	endcase
 end
