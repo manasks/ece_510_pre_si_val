@@ -13,11 +13,10 @@ input [4:0] checker_enable;
 
 reg [DATA_WIDTH:0] result_buf;
 
-initial
-begin
-	
-
-end
+reg chkr1_State;
+reg [1:0] chkr3_State;
+reg [1:0] chkr4_State;
+reg [1:0] chkr5_State;
 
 //Checker 1: when reset_n is asserted (driven to 0), all outputs become 0
 //within 1 clock cycle.
