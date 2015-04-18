@@ -2,20 +2,10 @@
 
 module top();
 
-reg clk_def;
+wire clk_def;
 
 parameter DATA_WIDTH = 8;
 reg [4:0] checker_enable_reg = 5'b00100;
-
-initial 
-begin 
-	clk_def = 0; 
-end 
- 
-always
-begin
-    #10 clk_def = !clk_def; 
-end
 
 wire reset_n_wire;
 wire opcode_valid_wire;
@@ -24,6 +14,10 @@ wire [DATA_WIDTH-1:0] data_wire;
 wire done_wire;
 wire [DATA_WIDTH-1:0] result_wire;
 wire overflow_wire;
+
+	clkgen_driver clkgen(
+			.clk(clk_def)
+	);
 
 	simple_alu alu(
 			.clk(clk_def),
