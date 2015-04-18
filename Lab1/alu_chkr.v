@@ -44,6 +44,7 @@ parameter chkr5_DONE = 2'b10;
 //within 1 clock cycle.
 always @(posedge clk or reset_n or checker_enable[0])
 begin
+	$display("CHECKER1")
 	case(chkr1_State)
 		chkr1_RESET:
 		begin
