@@ -19,7 +19,7 @@ reg [1:0] chkr4_State;
 reg [1:0] chkr5_State;
 
 parameter chkr1_CHECK = 1'b1;
-parameter chkr1_RESET = 1'b0
+parameter chkr1_RESET = 1'b0;
 
 parameter chkr3_OPCODE1 = 2'b00;
 parameter chkr3_OPCODE2 = 2'b01;
