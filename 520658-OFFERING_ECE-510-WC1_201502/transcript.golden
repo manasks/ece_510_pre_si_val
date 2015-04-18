@@ -1,0 +1,215 @@
+
+Warning-[RT_UO] Unsupported option
+  Unsupported option '-c' is ignored
+
+Chronologic VCS simulator copyright 1991-2011
+Contains Synopsys proprietary information.
+Compiler version E-2011.03_Full64; Runtime version E-2011.03_Full64;  Feb 28 00:47 2015
+
+@ 500 ns The chip is out of reset
+
+@ 545 ns Starting sequnces with a new opcode
+
+@ 545 ns: Valid Opcode = 0 with Data_A= 00 is injected
+@ 565 ns: Valid Opcode = 0 with Data_B= 00 is injected
+@ 595 ns: Result is: 00. Overflow bit is 0.
+
+@ 695 ns: Valid Opcode = 0 with Data_A= ff is injected
+@ 715 ns: Valid Opcode = 0 with Data_B= ff is injected
+@ 745 ns: Result is: fe. Overflow bit is 1.
+
+@ 885 ns: Valid Opcode = 0 with Data_A= aa is injected
+@ 905 ns: Valid Opcode = 0 with Data_B= 55 is injected
+@ 935 ns: Result is: ff. Overflow bit is 0.
+
+@ 1025 ns: Valid Opcode = 0 with Data_A= 00 is injected
+@ 1045 ns: Valid Opcode = 0 with Data_B= ff is injected
+@ 1075 ns: Result is: ff. Overflow bit is 0.
+
+@ 1115 ns: Valid Opcode = 0 with Data_A= ff is injected
+@ 1135 ns: Valid Opcode = 0 with Data_B= 01 is injected
+@ 1165 ns: Result is: 00. Overflow bit is 1.
+
+@ 1305 ns: Valid Opcode = 0 with Data_A= aa is injected without opcode_valid
+@ 1325 ns: Valid Opcode = 0 with Data_B= 55 is injected without opcode_valid
+@ 1335 ns: Result is: 00. Overflow bit is 0.
+
+@ 1375 ns: Valid Opcode = 0 with Data_A= 20 is injected
+@ 1395 ns: Valid Opcode = 0 with Data_B= df is injected
+@ 1425 ns: Result is: ff. Overflow bit is 0.
+
+@ 1495 ns: Valid Opcode = 0 with Data_A= ff is injected
+@ 1515 ns: Valid Opcode = 0 with Data_B= 01 is injected
+@ 1515 ns: Reset is asserted
+@ 1525 ns: Result is: 00. Overflow bit is 0.
+
+@ 1615 ns: Reset is de-asserted 
+
+@ 1665 ns: Valid Opcode = 0 with Data_A= 33 is injected
+@ 1685 ns: Valid Opcode = 0 with Data_B= 5c is injected
+@ 1715 ns: Result is: 8f. Overflow bit is 0.
+
+@ 1795 ns: Valid Opcode = 0 with Data_A= 98 is injected
+@ 1815 ns: Valid Opcode = 0 with Data_B= 6b is injected
+@ 1835 ns: Result is: 00. Overflow bit is 0.
+
+@ 1895 ns: Valid Opcode = 0 with Data_A= c2 is injected
+@ 1915 ns: Valid Opcode = 0 with Data_B= e3 is injected
+@ 1945 ns: Result is: a5. Overflow bit is 1.
+
+
+@ 1995 ns Starting sequnces with a new opcode
+
+@ 1995 ns: Valid Opcode = 1 with Data_A= 00 is injected
+@ 2015 ns: Valid Opcode = 1 with Data_B= 00 is injected
+@ 2045 ns: Result is: 00. Overflow bit is 0.
+
+@ 2085 ns: Valid Opcode = 1 with Data_A= ff is injected
+@ 2105 ns: Valid Opcode = 1 with Data_B= ff is injected
+@ 2135 ns: Result is: 00. Overflow bit is 0.
+
+@ 2245 ns: Valid Opcode = 1 with Data_A= aa is injected
+@ 2265 ns: Valid Opcode = 1 with Data_B= 55 is injected
+@ 2295 ns: Result is: 55. Overflow bit is 0.
+
+@ 2385 ns: Valid Opcode = 1 with Data_A= 00 is injected
+@ 2405 ns: Valid Opcode = 1 with Data_B= ff is injected
+@ 2435 ns: Result is: 01. Overflow bit is 1.
+
+@ 2495 ns: Valid Opcode = 1 with Data_A= ff is injected
+@ 2515 ns: Valid Opcode = 1 with Data_B= 01 is injected
+@ 2545 ns: Result is: fe. Overflow bit is 0.
+
+@ 2625 ns: Valid Opcode = 1 with Data_A= aa is injected without opcode_valid
+@ 2645 ns: Valid Opcode = 1 with Data_B= 55 is injected without opcode_valid
+@ 2655 ns: Result is: 00. Overflow bit is 0.
+
+@ 2745 ns: Valid Opcode = 1 with Data_A= 20 is injected
+@ 2765 ns: Valid Opcode = 1 with Data_B= df is injected
+@ 2795 ns: Result is: 41. Overflow bit is 1.
+
+@ 2935 ns: Valid Opcode = 1 with Data_A= ff is injected
+@ 2955 ns: Valid Opcode = 1 with Data_B= 01 is injected
+@ 2955 ns: Reset is asserted
+@ 2965 ns: Result is: 00. Overflow bit is 0.
+
+@ 2985 ns: Reset is de-asserted 
+
+@ 3035 ns: Valid Opcode = 1 with Data_A= 33 is injected
+@ 3055 ns: Valid Opcode = 1 with Data_B= 5c is injected
+@ 3085 ns: Result is: d7. Overflow bit is 1.
+
+@ 3105 ns: Valid Opcode = 1 with Data_A= 98 is injected
+@ 3125 ns: Valid Opcode = 1 with Data_B= 6b is injected
+@ 3145 ns: Result is: 00. Overflow bit is 0.
+
+@ 3305 ns: Valid Opcode = 1 with Data_A= c2 is injected
+@ 3325 ns: Valid Opcode = 1 with Data_B= e3 is injected
+@ 3355 ns: Result is: df. Overflow bit is 1.
+
+
+@ 3465 ns Starting sequnces with a new opcode
+
+@ 3465 ns: Valid Opcode = 2 with Data_A= 00 is injected
+@ 3485 ns: Valid Opcode = 2 with Data_B= 00 is injected
+@ 3515 ns: Result is: 00. Overflow bit is 0.
+
+@ 3595 ns: Valid Opcode = 2 with Data_A= ff is injected
+@ 3615 ns: Valid Opcode = 2 with Data_B= ff is injected
+@ 3645 ns: Result is: 00. Overflow bit is 0.
+
+@ 3665 ns: Valid Opcode = 2 with Data_A= aa is injected
+@ 3685 ns: Valid Opcode = 2 with Data_B= 55 is injected
+@ 3715 ns: Result is: ff. Overflow bit is 0.
+
+@ 3865 ns: Valid Opcode = 2 with Data_A= 00 is injected
+@ 3885 ns: Valid Opcode = 2 with Data_B= ff is injected
+@ 3915 ns: Result is: ff. Overflow bit is 0.
+
+@ 4065 ns: Valid Opcode = 2 with Data_A= ff is injected
+@ 4085 ns: Valid Opcode = 2 with Data_B= 01 is injected
+@ 4115 ns: Result is: fe. Overflow bit is 1.
+
+@ 4275 ns: Valid Opcode = 2 with Data_A= aa is injected without opcode_valid
+@ 4295 ns: Valid Opcode = 2 with Data_B= 55 is injected without opcode_valid
+@ 4305 ns: Result is: 00. Overflow bit is 0.
+
+@ 4405 ns: Valid Opcode = 2 with Data_A= 20 is injected
+@ 4425 ns: Valid Opcode = 2 with Data_B= df is injected
+@ 4455 ns: Result is: ff. Overflow bit is 0.
+
+@ 4515 ns: Valid Opcode = 2 with Data_A= ff is injected
+@ 4535 ns: Valid Opcode = 2 with Data_B= 01 is injected
+@ 4535 ns: Reset is asserted
+@ 4545 ns: Result is: 00. Overflow bit is 0.
+
+@ 4605 ns: Reset is de-asserted 
+
+@ 4655 ns: Valid Opcode = 2 with Data_A= 33 is injected
+@ 4675 ns: Valid Opcode = 2 with Data_B= 5c is injected
+@ 4705 ns: Result is: 6f. Overflow bit is 0.
+
+@ 4855 ns: Valid Opcode = 2 with Data_A= 98 is injected
+@ 4875 ns: Valid Opcode = 2 with Data_B= 6b is injected
+@ 4895 ns: Result is: 00. Overflow bit is 0.
+
+@ 5015 ns: Valid Opcode = 2 with Data_A= c2 is injected
+@ 5035 ns: Valid Opcode = 2 with Data_B= e3 is injected
+@ 5065 ns: Result is: 21. Overflow bit is 0.
+
+
+@ 5165 ns Starting sequnces with a new opcode
+
+@ 5165 ns: Valid Opcode = 3 with Data_A= 00 is injected
+@ 5185 ns: Valid Opcode = 3 with Data_B= 00 is injected
+@ 5215 ns: Result is: ff. Overflow bit is 0.
+
+@ 5245 ns: Valid Opcode = 3 with Data_A= ff is injected
+@ 5265 ns: Valid Opcode = 3 with Data_B= ff is injected
+@ 5295 ns: Result is: ff. Overflow bit is 0.
+
+@ 5405 ns: Valid Opcode = 3 with Data_A= aa is injected
+@ 5425 ns: Valid Opcode = 3 with Data_B= 55 is injected
+@ 5455 ns: Result is: 00. Overflow bit is 0.
+
+@ 5535 ns: Valid Opcode = 3 with Data_A= 00 is injected
+@ 5555 ns: Valid Opcode = 3 with Data_B= ff is injected
+@ 5585 ns: Result is: 00. Overflow bit is 0.
+
+@ 5725 ns: Valid Opcode = 3 with Data_A= ff is injected
+@ 5745 ns: Valid Opcode = 3 with Data_B= 01 is injected
+@ 5775 ns: Result is: 01. Overflow bit is 0.
+
+@ 5855 ns: Valid Opcode = 3 with Data_A= aa is injected without opcode_valid
+@ 5875 ns: Valid Opcode = 3 with Data_B= 55 is injected without opcode_valid
+@ 5885 ns: Result is: 00. Overflow bit is 0.
+
+@ 5915 ns: Valid Opcode = 3 with Data_A= 20 is injected
+@ 5935 ns: Valid Opcode = 3 with Data_B= df is injected
+@ 5965 ns: Result is: 00. Overflow bit is 0.
+
+@ 6015 ns: Valid Opcode = 3 with Data_A= ff is injected
+@ 6035 ns: Valid Opcode = 3 with Data_B= 01 is injected
+@ 6035 ns: Reset is asserted
+@ 6045 ns: Result is: 00. Overflow bit is 0.
+
+@ 6065 ns: Reset is de-asserted 
+
+@ 6115 ns: Valid Opcode = 3 with Data_A= 33 is injected
+@ 6135 ns: Valid Opcode = 3 with Data_B= 5c is injected
+@ 6165 ns: Result is: 90. Overflow bit is 0.
+
+@ 6285 ns: Valid Opcode = 3 with Data_A= 98 is injected
+@ 6305 ns: Valid Opcode = 3 with Data_B= 6b is injected
+@ 6325 ns: Result is: 00. Overflow bit is 0.
+
+@ 6375 ns: Valid Opcode = 3 with Data_A= c2 is injected
+@ 6395 ns: Valid Opcode = 3 with Data_B= e3 is injected
+@ 6425 ns: Result is: de. Overflow bit is 0.
+
+$finish called from file "./v_files/alu_test.v", line 247.
+$finish at simulation time              6565000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 6565000 ps
+CPU Time:      0.250 seconds;       Data structure size:   0.0Mb
+Sat Feb 28 00:47:57 2015
