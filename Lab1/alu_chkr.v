@@ -48,6 +48,11 @@ begin
     chkr5_State = chkr5_OPCODE1;
 end
 
+always @(posedge clk)
+begin
+    //$display("opcode: %h \t opcode_valid: %h \t data: %h \t result: %h \t overflow: %h \t done: %h",opcode, opcode_valid, data, result, overflow, done);
+end
+
 //Checker 1: when reset_n is asserted (driven to 0), all outputs become 0
 //within 1 clock cycle.
 always @(posedge clk or reset_n or checker_enable[0])
@@ -91,8 +96,6 @@ end
 //have been captured.
 always @(posedge clk)
 begin
-    $display("opcode: %h \t opcode_valid: %h \t done: %h", opcode, opcode_valid, done);
-	$display("State: %h",chkr3_State);
     case(chkr3_State)
 		chkr3_OPCODE1:
 		begin
