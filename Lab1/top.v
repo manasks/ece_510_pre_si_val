@@ -19,7 +19,6 @@ begin
     $display("");
 end
 
-
 	clkgen_driver clkgen(
 			.clk(clk_wire)
 	);
@@ -31,8 +30,9 @@ end
 			.opcode(opcode_wire),
 			.data(data_wire),
 			.done(done_wire),
-			.result(result_wire),
-			.overflow(overflow_wire)
+			.overflow(overflow_wire),
+			.result(result_wire)
+			
 	);
 		
 	alu_test test(
