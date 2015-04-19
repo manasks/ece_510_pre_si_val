@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module top();
+module top1();
 
 wire clk_def;
 

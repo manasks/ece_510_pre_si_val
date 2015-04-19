@@ -89,9 +89,11 @@ end
 
 //Checker 3: Output “done” must be asserted within 2 cycles after both valid data 
 //have been captured.
-always @(posedge clk or checker_enable[2])
+always @(posedge clk)
 begin
-	case(chkr3_State)
+    $display("opcode: %h \t opcode_valid: %h \t done: %h", opcode, opcode_valid, done);
+	$display("State: %h",chkr3_State);
+    case(chkr3_State)
 		chkr3_OPCODE1:
 		begin
 			if (opcode_valid && checker_enable[2])
@@ -131,7 +133,8 @@ begin
 			else
 			begin
 				$display("CHECKER 3 FAILED");
-				chkr3_State = chkr3_OPCODE1;
+				$display("DUMBASS");
+                chkr3_State = chkr3_OPCODE1;
 			end
 		end
 	endcase	
