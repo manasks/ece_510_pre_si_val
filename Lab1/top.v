@@ -16,7 +16,7 @@ wire clk_wire;
 
 always @(posedge clk_wire)
 begin
-    //$display("RESULT: %h", result_wire);
+    $display("");
 end
 
 

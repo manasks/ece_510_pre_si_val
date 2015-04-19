@@ -107,7 +107,7 @@ module simple_alu
 
    // Always block to define next state and calculate outputs
    always @(posedge clk) begin
-      $display("SIMPLE_ALU - opcode: %h \t opcode_valid: %h \t data: %h \t result: %h \t done: %h",opcode,opcode_valid,data,result,done);
+      $display("SIMPLE_ALU - opcode: %h \t opcode_valid: %h \t data: %h \t result: %h \t overflow: %h \t done: %h",opcode,opcode_valid,data,result,overflow,done);
       case (current_state)
 
          // This is the dafault state when the FSM is in reset
