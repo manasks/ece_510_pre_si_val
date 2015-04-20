@@ -102,12 +102,13 @@ module simple_alu
 
    // always block to drive FSM
    always @(posedge clk or negedge reset_n or current_state) 
-      if (!reset_n) current_state <= `RESET;
-      else          current_state <= next_state;
+      if (!reset_n) current_state = `RESET;
+      else          current_state = next_state;
 
    // Always block to define next state and calculate outputs
    always @(posedge clk) begin
-      $display("SIMPLE_ALU - opcode: %h \t opcode_valid: %h \t data: %h \t result: %h \t overflow: %h \t done: %h",opcode,opcode_valid,data,result,overflow,done);
+      //$display("SIMPLE_ALU - opcode: %h \t opcode_valid: %h \t data: %h \t result: %h \t overflow: %h \t done: %h \t current_state: %h",opcode,opcode_valid,data,result,overflow,done,current_state);
+      //$display("int_data_a: %h \t int_data_b: %h", int_data_a, int_data_b);
       case (current_state)
 
          // This is the dafault state when the FSM is in reset
@@ -192,7 +193,7 @@ module simple_alu
                   int_result   = {`DATA_WIDTH{1'b0}};
 
                   if (!opcode_valid) begin
-                     next_state <= `IDLE;
+                     next_state = `IDLE;
                   end else begin
 
                      // Latch the data

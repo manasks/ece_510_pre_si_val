@@ -3,7 +3,7 @@
 
 module top();
 
-reg [4:0] checker_enable_reg = 5'b00000;
+reg [4:0] checker_enable_reg = 5'b11111;
 
 wire reset_n_wire;
 wire opcode_valid_wire;
@@ -14,9 +14,21 @@ wire [`DATA_WIDTH-1:0] result_wire;
 wire overflow_wire;
 wire clk_wire;
 
+reg int_clk;
+
+initial
+begin
+    int_clk = 0;
+end
+
 always @(posedge clk_wire)
 begin
-    $display("");
+    int_clk = ~int_clk;
+end
+
+always @(posedge clk_wire)
+begin
+    //$display("");
 end
 
 	clkgen_driver clkgen(
@@ -47,7 +59,7 @@ end
     );
 
 	alu_chkr chkr(
-		.clk(clk_wire),
+		.clk(int_clk),
 		.reset_n(reset_n_wire),
 		.opcode_valid(opcode_valid_wire),
 		.opcode(opcode_wire),

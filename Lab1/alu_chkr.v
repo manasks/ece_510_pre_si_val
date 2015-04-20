@@ -55,9 +55,9 @@ end
 
 //Checker 1: when reset_n is asserted (driven to 0), all outputs become 0
 //within 1 clock cycle.
-always @(posedge clk or reset_n or checker_enable[0])
+always @(posedge clk)
 begin
-	case(chkr1_State)
+    case(chkr1_State)
 		chkr1_RESET:
 		begin
 			if(reset_n && checker_enable[0])
@@ -87,9 +87,23 @@ end
 
 //Checker 2: when opcode_valid is asserted, valid opcode and valid data
 //(no X or Z) must be driven on the same cycle.
-always @(posedge clk or opcode_valid or checker_enable[1])
+always @(posedge clk)
 begin
-	
+    if (opcode_valid && checker_enable[1])
+    begin
+       if(opcode == "x" || data == "xxxxxxxx")
+       begin
+            $display("CHECKER 2 FAILED");
+       end
+       else if(opcode == "z" || data == "zzzzzzzz")
+       begin
+            $display("CHECKER 2 FAILED");
+       end
+       else
+       begin
+            $display("CHECKER 2 PASSED");
+       end
+    end
 end
 
 //Checker 3: Output “done” must be asserted within 2 cycles after both valid data 
@@ -97,7 +111,7 @@ end
 always @(posedge clk)
 begin
     case(chkr3_State)
-		chkr3_OPCODE1:
+        chkr3_OPCODE1:
 		begin
 			if (opcode_valid && checker_enable[2])
 			begin
@@ -136,7 +150,6 @@ begin
 			else
 			begin
 				$display("CHECKER 3 FAILED");
-				$display("DUMBASS");
                 chkr3_State = chkr3_OPCODE1;
 			end
 		end
