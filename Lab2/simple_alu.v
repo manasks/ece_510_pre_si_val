@@ -104,22 +104,22 @@ begin
             if(opcode_valid)
 			begin
 				case(opcode_buf)
-					2'b00:
+					ADD:
 					begin
 						NextState = ADD;
 					end
 					
-					2'b01:
+					SUB:
 					begin
 						NextState = SUB;
 					end
 					
-					2'b10:
+					PAR:
 					begin
 						NextState = PAR;
 					end
 					
-					2'b11:
+					COMP:
 					begin
 						NextState = COMP;
 					end				
