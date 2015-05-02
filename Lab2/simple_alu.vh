@@ -1,0 +1,2 @@
+typedef enum {OPCODE_ADD = 2'b00, OPCODE_SUB = 2'b01, OPCODE_PAR = 2'b10, OPCODE_COMP = 2'b11} ALU_OPCODES;
+`define DATA_WIDTH 8
