@@ -46,7 +46,7 @@ wire alu_done;
 
 logic first;
 
-always @(posedge clk or reset_n)
+always_ff @(posedge clk or reset_n)
 begin
     if(!reset_n)
 	begin
@@ -58,7 +58,7 @@ begin
 	end
 end
 
-always @(State or opcode_valid or reset_n or alu_done)
+always_comb @(State or opcode_valid or reset_n or alu_done)
 begin
     case(State)
         RESET:
@@ -186,7 +186,7 @@ begin
 	endcase
 end
 
-always @(State)
+always_comb @(State)
 begin
     case(State)
         RESET:
