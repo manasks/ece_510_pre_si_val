@@ -1,3 +1,4 @@
+`include "alu.pkg"
 module bit_subtractor(bit_a, bit_b, bit_borrow_in, bit_diff, bit_borrow_out, start, done);
 
 input bit_a;

@@ -1,3 +1,4 @@
+`include "alu.pkg"
 module byte_adder(byte_a, byte_b, byte_carry_in, byte_sum, byte_overflow, start, done);
 
 parameter DATA_WIDTH = 8;

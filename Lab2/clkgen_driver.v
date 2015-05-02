@@ -7,6 +7,7 @@
 // =======================================================================
 
 `timescale 1ns/1ps
+`include "alu.pkg"
 
 // Define module
 module clkgen_driver

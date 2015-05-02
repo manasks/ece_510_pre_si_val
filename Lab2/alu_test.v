@@ -7,7 +7,7 @@
 // =======================================================================
 
 `timescale 1ns/1ps
-
+`define "alu.pkg"
 `define DATA_WIDTH 8
 
 module alu_test

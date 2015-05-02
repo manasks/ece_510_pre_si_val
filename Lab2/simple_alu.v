@@ -1,3 +1,4 @@
+`include "alu.pkg"
 module simple_alu(clk, reset_n, opcode_valid, opcode, data, done, result, overflow);
 
 parameter DATA_WIDTH = 8;

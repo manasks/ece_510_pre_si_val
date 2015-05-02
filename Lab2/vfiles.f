@@ -1,3 +1,4 @@
+alu.pkg
 bit_adder.v
 bit_subtractor.v
 bit_parity.v
