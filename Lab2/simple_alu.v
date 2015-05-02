@@ -1,4 +1,3 @@
-`include "alu.pkg"
 module simple_alu(clk, reset_n, opcode_valid, opcode, data, done, result, overflow);
 
 parameter DATA_WIDTH = 8;
@@ -59,7 +58,7 @@ begin
 	end
 end
 
-always_comb @(State or opcode_valid or reset_n or alu_done)
+always_comb
 begin
     case(State)
         RESET:
@@ -187,7 +186,7 @@ begin
 	endcase
 end
 
-always_comb @(State)
+always_comb
 begin
     case(State)
         RESET:

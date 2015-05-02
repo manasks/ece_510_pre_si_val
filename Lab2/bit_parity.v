@@ -1,4 +1,3 @@
-`include "alu.pkg"
 module bit_parity(bit_a, bit_b, bit_parity_out, start, done);
 
 input bit_a;

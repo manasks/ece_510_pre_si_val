@@ -1,4 +1,3 @@
-`include "alu.pkg"
 module alu_chkr(clk, reset_n, opcode_valid, opcode, data, result, overflow, done, checker_enable);
 
 parameter DATA_WIDTH = 8;

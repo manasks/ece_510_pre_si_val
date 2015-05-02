@@ -8,7 +8,6 @@
 // =======================================================================
 
 `timescale 1ns/1ps
-`include "alu.pkg"
 `define DATA_WIDTH 8
 
 module alu_top_tb ();

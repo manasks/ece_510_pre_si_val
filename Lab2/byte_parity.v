@@ -1,4 +1,3 @@
-`include "alu.pkg"
 module byte_parity(byte_a, byte_b, byte_parity, start, done);
 
 parameter DATA_WIDTH = 8;

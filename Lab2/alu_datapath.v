@@ -1,4 +1,3 @@
-`include "alu.pkg"
 module alu_datapath(clk, alu_data, opcode_value, store_a, store_b, start, alu_done, result, overflow_def);
 
 parameter DATA_WIDTH = 8;

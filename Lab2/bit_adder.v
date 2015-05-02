@@ -1,4 +1,3 @@
-`include "alu.pkg"
 module bit_adder(bit_a, bit_b, bit_carry_in, bit_sum, bit_carry_out, start, done);
 
 input bit_a;

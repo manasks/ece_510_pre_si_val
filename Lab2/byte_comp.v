@@ -1,4 +1,3 @@
-`include "alu.pkg"
 module byte_comp(byte_a, byte_b, byte_comp, start, done);
 
 parameter DATA_WIDTH = 8;
