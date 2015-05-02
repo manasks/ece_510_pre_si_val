@@ -1,6 +1,6 @@
+`timescale 1ns/1ps
+`include "alu.pkg"
 module byte_subtractor(byte_a, byte_b, byte_borrow_in, byte_diff, byte_borrow_out, start, done);
-
-parameter DATA_WIDTH = 8;
 
 input [DATA_WIDTH-1:0] byte_a;
 input [DATA_WIDTH-1:0] byte_b;

@@ -1,13 +1,13 @@
+`timescale 1ns/1ps
+`include "alu.pkg"
 module alu_chkr(clk, reset_n, opcode_valid, opcode, data, result, overflow, done, checker_enable);
-
-parameter DATA_WIDTH = 8;
 
 input clk;
 input reset_n;
 input opcode_valid;
 input opcode;
 input [DATA_WIDTH-1:0] data;
-input result;
+input [DATA_WIDTH-1:0] result;
 input overflow;
 input done;
 input [4:0] checker_enable;

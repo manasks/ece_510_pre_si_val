@@ -2,15 +2,13 @@
 `define DEFS_DONE
 package alupkg;
 
-parameter DATA_WIDTH = 32;
-
-//enum for the opcode
-typedef enum logic [1:0] {
-                ADD     = 2'b00,
-                SUB     = 2'b01,
-                PAR     = 2'b10,
-                COMP    = 2'b11 } ALU_OPCODES;
-
+parameter DATA_WIDTH    = 8;
+parameter ON            = 1'b1;
+parameter OFF           = 1'b0;
+parameter ADD           = 2'b00;
+parameter SUB           = 2'b01;
+parameter PAR           = 2'b10;
+parameter COMP          = 2'b11;
 
 endpackage
 

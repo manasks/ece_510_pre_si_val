@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+`include "alu.pkg"
 module simple_alu(clk, reset_n, opcode_valid, opcode, data, done, result, overflow);
 
 parameter DATA_WIDTH = 8;
@@ -28,10 +30,10 @@ parameter
     IDLE    = 4'b0001,
     DATA_A  = 4'b0010,
     DATA_B  = 4'b0011,
-    ADD     = 4'b0100,
-    SUB     = 4'b0101,
-    PAR     = 4'b0110,
-    COMP    = 4'b0111,
+    S_ADD   = 4'b0100,
+    S_SUB   = 4'b0101,
+    S_PAR   = 4'b0110,
+    S_COMP  = 4'b0111,
     DONE    = 4'b1000;
 
 logic [3:0] State, NextState;
@@ -131,7 +133,7 @@ begin
 			end
         end
 
-        ADD:
+        S_ADD:
         begin
 			if(alu_done)
 			begin
@@ -143,7 +145,7 @@ begin
 			end
         end
 
-        SUB:
+        S_SUB:
         begin
 			if(alu_done)
 			begin
@@ -155,7 +157,7 @@ begin
 			end
         end
 
-        PAR:
+        S_PAR:
         begin
 			if(alu_done)
 			begin
@@ -167,7 +169,7 @@ begin
 			end
         end
 
-        COMP:
+        S_COMP:
         begin
 			if(alu_done)
 			begin
@@ -231,7 +233,7 @@ begin
             overflow = OFF;
         end
 
-        ADD:
+        S_ADD:
         begin
 			store_a_def = OFF;
 			store_b_def = OFF;
@@ -242,7 +244,7 @@ begin
             overflow = OFF;
         end
 
-        SUB:
+        S_SUB:
         begin
 			store_a_def = OFF;
 			store_b_def = OFF;
@@ -253,7 +255,7 @@ begin
             overflow = OFF;
         end
 
-        PAR:
+        S_PAR:
         begin
 			store_a_def = OFF;
 			store_b_def = OFF;
@@ -264,7 +266,7 @@ begin
             overflow = OFF;
         end
 
-        COMP:
+        S_COMP:
         begin
 			store_a_def = OFF;
 			store_b_def = OFF;
@@ -288,7 +290,7 @@ begin
 	endcase
 end
 
-	alu_datapath #(DATA_WIDTH) alu_datapath (
+	alu_datapath alu_datapath (
 			.clk(clk),
 			.alu_data(data),
 			.opcode_value(opcode_def),

@@ -8,8 +8,7 @@
 // =======================================================================
 
 `timescale 1ns/1ps
-`define DATA_WIDTH 8
-
+`include "alu.pkg"
 module alu_top_tb ();
 
 wire                    clk;
@@ -19,11 +18,11 @@ wire                    opcode_valid;
 wire                    opcode;
 
 
-wire  [`DATA_WIDTH-1:0] data;
+wire  [DATA_WIDTH-1:0] data;
 
 wire                    done;
 wire                    overflow;
-wire  [`DATA_WIDTH-1:0] result;
+wire  [DATA_WIDTH-1:0] result;
 
 alu_test alu_test(.clk          (clk),
                   .reset_n      (reset_n),

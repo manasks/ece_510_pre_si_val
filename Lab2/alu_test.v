@@ -7,8 +7,7 @@
 // =======================================================================
 
 `timescale 1ns/1ps
-`define "alu.pkg"
-`define DATA_WIDTH 8
+`include "alu.pkg"
 
 module alu_test
   (
@@ -21,12 +20,12 @@ module alu_test
    output                    opcode,
 
    // Data output to the DUT
-   output [`DATA_WIDTH-1:0] data,
+   output [DATA_WIDTH-1:0] data,
 
    // Responses from the DUT
    input                    done,
    input                    overflow,
-   input  [`DATA_WIDTH-1:0] result
+   input  [DATA_WIDTH-1:0] result
 
    );
 
@@ -43,7 +42,7 @@ module alu_test
    reg                   int_opcode_valid;
    reg [1:0]             full_opcode;
    reg                   int_opcode;
-   reg [`DATA_WIDTH-1:0] int_data;
+   reg [DATA_WIDTH-1:0] int_data;
    reg [7:0] i;
    reg [3:0] delay;
 
