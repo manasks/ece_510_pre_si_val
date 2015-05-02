@@ -12,12 +12,12 @@ output done;
 output [DATA_WIDTH-1:0] result;
 output overflow;
 
-reg overflow;
+logic overflow;
 
 wire overflow_buf;
 
-reg done;
-reg [DATA_WIDTH-1:0] result;
+logic done;
+logic [DATA_WIDTH-1:0] result;
 
 parameter ON = 1'b1;
 parameter OFF = 1'b0;
@@ -34,23 +34,17 @@ parameter
     COMP    = 4'b0111,
     DONE    = 4'b1000;
 
-//parameter
-//    ADD     = 2'b00,
-//    SUB     = 2'b01,
-//    PAR     = 2'b10,
-//    COMP    = 2'b11;
-
-reg [3:0] State, NextState;
-reg [DATA_WIDTH-1:0] A_Data, B_Data;
-reg [1:0] opcode_def;
-reg store_a_def, store_b_def;
+logic [3:0] State, NextState;
+logic [DATA_WIDTH-1:0] A_Data, B_Data;
+logic [1:0] opcode_def;
+logic store_a_def, store_b_def;
 wire [DATA_WIDTH-1:0] result_def;
-reg [1:0] opcode_buf;
-reg store_a, store_b;
-reg start;
+logic [1:0] opcode_buf;
+logic store_a, store_b;
+logic start;
 wire alu_done;
 
-reg first;
+logic first;
 
 always @(posedge clk or reset_n)
 begin
