@@ -11,12 +11,12 @@ output [DATA_WIDTH-1:0] byte_sum;
 output byte_overflow;
 output done;
 
-wire byte_overflow;
+logic byte_overflow;
 
-wire [DATA_WIDTH:0] carry_buf;
+logic [DATA_WIDTH:0] carry_buf;
 
-wire [DATA_WIDTH-1:0] byte_a_buf;
-wire [DATA_WIDTH-1:0] byte_b_buf;
+logic [DATA_WIDTH-1:0] byte_a_buf;
+logic [DATA_WIDTH-1:0] byte_b_buf;
 
 assign carry_buf[0] = byte_carry_in;
 assign byte_a_buf = byte_a;

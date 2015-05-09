@@ -10,6 +10,21 @@ parameter SUB           = 2'b01;
 parameter PAR           = 2'b10;
 parameter COMP          = 2'b11;
 
+typedef enum logic [1:0] {
+    OPCODE_ADD = 2'b00,
+    OPCODE_SUB = 2'b01,
+    OPCODE_PAR = 2'b10,
+    OPCODE_COMP = 2'b11
+    } ALU_OPCODES;
+
+
+typedef struct packed{
+    ALU_OPCODES alu_opcode;
+    logic [DATA_WIDTH-1:0] data_a;
+    logic [DATA_WIDTH-1:0] data_b;
+    logic [3:0] delay;
+    } alu_test_stim_s;
+
 endpackage
 
 import alupkg::*;

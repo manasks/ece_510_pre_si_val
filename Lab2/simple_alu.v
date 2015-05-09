@@ -2,8 +2,6 @@
 `include "alu.pkg"
 module simple_alu(clk, reset_n, opcode_valid, opcode, data, done, result, overflow);
 
-parameter DATA_WIDTH = 8;
-
 input clk;
 input reset_n;
 input opcode_valid;
@@ -16,13 +14,10 @@ output overflow;
 
 logic overflow;
 
-wire overflow_buf;
+logic overflow_buf;
 
 logic done;
 logic [DATA_WIDTH-1:0] result;
-
-parameter ON = 1'b1;
-parameter OFF = 1'b0;
 
 parameter
 
@@ -38,13 +33,13 @@ parameter
 
 logic [3:0] State, NextState;
 logic [DATA_WIDTH-1:0] A_Data, B_Data;
-logic [1:0] opcode_def;
+ALU_OPCODES opcode_def;
 logic store_a_def, store_b_def;
-wire [DATA_WIDTH-1:0] result_def;
+logic [DATA_WIDTH-1:0] result_def;
 logic [1:0] opcode_buf;
 logic store_a, store_b;
 logic start;
-wire alu_done;
+logic alu_done;
 
 logic first;
 
@@ -195,7 +190,7 @@ begin
         begin
             store_a_def = OFF;
 			store_b_def = OFF;
-			opcode_def = ADD;
+			opcode_def = OPCODE_ADD;
 			start = OFF;
 			result = 0;
 			done = OFF;
@@ -206,7 +201,7 @@ begin
         begin
 			store_a_def = OFF;
             store_b_def = OFF;
-			opcode_def = ADD;
+			opcode_def = OPCODE_ADD;
 			start = OFF;
 			result = 0;
 			done = OFF;
@@ -217,6 +212,7 @@ begin
         begin
             store_a_def = ON;
 			store_b_def = OFF;
+            opcode_def = OPCODE_ADD;
             start = OFF;
 			result = 0;
 			done = OFF;
@@ -227,6 +223,7 @@ begin
         begin
 			store_a_def = OFF;
 			store_b_def = ON;
+            opcode_def = OPCODE_ADD;
             start = OFF;
 			result = 0;
 			done = OFF;
@@ -237,7 +234,7 @@ begin
         begin
 			store_a_def = OFF;
 			store_b_def = OFF;
-			opcode_def = ADD;
+			opcode_def = OPCODE_ADD;
 			start = 1'b1;
 			result = 0;
 			done = OFF;
@@ -248,7 +245,7 @@ begin
         begin
 			store_a_def = OFF;
 			store_b_def = OFF;
-			opcode_def = SUB;
+			opcode_def = OPCODE_SUB;
 			start = ON;
 			result = 0;
 			done = OFF;
@@ -259,7 +256,7 @@ begin
         begin
 			store_a_def = OFF;
 			store_b_def = OFF;
-			opcode_def = PAR;
+			opcode_def = OPCODE_PAR;
 			start = ON;
 			result = 0;
 			done = OFF;
@@ -270,7 +267,7 @@ begin
         begin
 			store_a_def = OFF;
 			store_b_def = OFF;
-			opcode_def = COMP;
+			opcode_def = OPCODE_COMP;
 			start = ON;
 			result = 0;
 			done = OFF;
@@ -281,7 +278,7 @@ begin
         begin
 			store_a_def = OFF;
 			store_b_def = OFF;
-			opcode_def = 2'b00;
+			opcode_def = OPCODE_ADD;
 			start = OFF;
 			result = result_def;
 			done = ON;

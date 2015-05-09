@@ -11,10 +11,10 @@ output [DATA_WIDTH-1:0] byte_diff;
 output byte_borrow_out;
 output done;
 
-wire [DATA_WIDTH:0] borrow_buf;
+logic [DATA_WIDTH:0] borrow_buf;
 
-wire [DATA_WIDTH-1:0] byte_a_buf;
-wire [DATA_WIDTH-1:0] byte_b_buf;
+logic [DATA_WIDTH-1:0] byte_a_buf;
+logic [DATA_WIDTH-1:0] byte_b_buf;
 
 assign borrow_buf[0] = byte_borrow_in;
 assign byte_a_buf = byte_a;

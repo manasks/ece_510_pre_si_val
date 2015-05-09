@@ -11,18 +11,18 @@
 `include "alu.pkg"
 module alu_top_tb ();
 
-wire                    clk;
-wire                    reset_n;
+logic                    clk;
+logic                    reset_n;
 
-wire                    opcode_valid;
-wire                    opcode;
+logic                    opcode_valid;
+logic                    opcode;
 
 
-wire  [DATA_WIDTH-1:0] data;
+logic  [DATA_WIDTH-1:0] data;
 
-wire                    done;
-wire                    overflow;
-wire  [DATA_WIDTH-1:0] result;
+logic                    done;
+logic                    overflow;
+logic  [DATA_WIDTH-1:0] result;
 
 alu_test alu_test(.clk          (clk),
                   .reset_n      (reset_n),

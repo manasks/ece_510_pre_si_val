@@ -4,7 +4,7 @@ module alu_datapath(clk, alu_data, opcode_value, store_a, store_b, start, alu_do
 
 input clk;
 input alu_data;
-input [1:0] opcode_value;
+input opcode_value;
 input store_a;
 input store_b;
 input start;
@@ -15,12 +15,12 @@ output overflow_def;
 
 reg overflow_def;
 
-wire clk;
-wire [DATA_WIDTH-1:0] alu_data;
-wire [1:0] opcode_value;
-wire store_a;
-wire store_b;
-wire start;
+logic clk;
+logic [DATA_WIDTH-1:0] alu_data;
+ALU_OPCODES opcode_value;
+logic store_a;
+logic store_b;
+logic start;
 
 logic alu_done;
 logic start_def;
@@ -32,23 +32,23 @@ wire done;
 
 logic [DATA_WIDTH-1:0] add_a;
 logic [DATA_WIDTH-1:0] add_b;
-wire [DATA_WIDTH-1:0] add_sum;
+logic [DATA_WIDTH-1:0] add_sum;
 logic add_carry_in;
-wire add_overflow;
+logic add_overflow;
 
 logic [DATA_WIDTH-1:0] sub_a;
 logic [DATA_WIDTH-1:0] sub_b;
-wire [DATA_WIDTH-1:0] sub_diff;
+logic [DATA_WIDTH-1:0] sub_diff;
 logic sub_borrow_in;
-wire sub_borrow_out;
+logic sub_borrow_out;
 
 logic [DATA_WIDTH-1:0] par_a;
 logic [DATA_WIDTH-1:0] par_b;
-wire [DATA_WIDTH-1:0] par_parity;
+logic [DATA_WIDTH-1:0] par_parity;
 
 logic [DATA_WIDTH-1:0] comp_a;
 logic [DATA_WIDTH-1:0] comp_b;
-wire [DATA_WIDTH-1:0] comp_comp;
+logic [DATA_WIDTH-1:0] comp_comp;
 
 always @(posedge clk or store_a or store_b or start)
 begin
@@ -63,7 +63,7 @@ begin
 	else if(start)
 	begin
         case(opcode_value)
-			ADD:
+			OPCODE_ADD:
 			begin
 				add_a = buf_a;
 				add_b = buf_b;
@@ -71,7 +71,7 @@ begin
                 start_def = 1'b1;
 			end
 			
-			SUB:
+			OPCODE_SUB:
 			begin
 				sub_a = buf_a;
 				sub_b = buf_b;
@@ -79,14 +79,14 @@ begin
                 start_def = 1'b1;
 			end
 		
-			PAR:
+			OPCODE_PAR:
 			begin
 				par_a = buf_a;
 				par_b = buf_b;
                 start_def = 1'b1;
 			end
 			
-			COMP:
+			OPCODE_COMP:
 			begin
 				comp_a = buf_a;
 				comp_b = buf_b;
@@ -101,28 +101,28 @@ begin
     if(done)
 	begin
         case(opcode_value)
-			ADD:
+			OPCODE_ADD:
 			begin
 				result 	= add_sum;
 				overflow_def = add_overflow;
 				alu_done = ON;
 			end
 			
-			SUB:
+			OPCODE_SUB:
 			begin
                 result = sub_diff;
 				overflow_def = sub_borrow_out;
 				alu_done = ON;
 			end
 		
-			PAR:
+			OPCODE_PAR:
 			begin
                 result = par_parity;
                 alu_done = ON;
                 overflow_def = OFF;
 			end
 			
-			COMP:
+			OPCODE_COMP:
 			begin
 				result = comp_a ^~ comp_b;
                 alu_done = ON;
@@ -145,7 +145,7 @@ end
 			.byte_sum(add_sum),
 			.byte_overflow(add_overflow),
 			.start(start_def),
-			.done(done)
+			.done(add_done)
 	);
 
 	byte_subtractor subtractor_ex(
@@ -155,7 +155,7 @@ end
 			.byte_diff(sub_diff),
 			.byte_borrow_out(sub_borrow_out),
 			.start(start_def),
-			.done(done)
+			.done(sub_done)
 	);
 	
 	byte_parity parity_ex(
@@ -163,7 +163,7 @@ end
 			.byte_b(par_b),
 			.byte_parity(par_parity),
 			.start(start_def),
-			.done(done)
+			.done(par_done)
 	);
 
 	byte_comp comp_ex(
@@ -171,7 +171,7 @@ end
 			.byte_b(comp_b),
 			.byte_comp(comp_comp),
 			.start(start_def),
-			.done(done)
+			.done(comp_done)
 	);
 
 endmodule

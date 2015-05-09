@@ -38,13 +38,15 @@ module alu_test
    parameter OPCODE_COMP = 2'b11;
 
    // Define internal registers
-   reg                   int_reset_n;
-   reg                   int_opcode_valid;
-   reg [1:0]             full_opcode;
-   reg                   int_opcode;
-   reg [DATA_WIDTH-1:0] int_data;
-   reg [7:0] i;
-   reg [3:0] delay;
+   logic                   int_reset_n;
+   logic                   int_opcode_valid;
+   logic [1:0]             full_opcode;
+   logic                   int_opcode;
+   logic [DATA_WIDTH-1:0] int_data;
+   logic [7:0] i;
+   logic [3:0] delay;
+
+   alu_test_stim_s stim;
 
    initial begin
 
