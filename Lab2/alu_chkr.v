@@ -26,7 +26,8 @@
 // =======================================================================
 
 // Let's define some defines
-`define DATA_WIDTH 8
+`timescale 1ns/1ps
+`include "alu.pkg"
 
 module alu_chkr
   (
