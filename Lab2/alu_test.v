@@ -49,7 +49,7 @@ module alu_test
    alu_test_stim_s stim;
    
    alu_test_stim_s alu_test_stim[0:15] =  {
-        '{OPCODE_SUB,'0,'0,4'b0000},
+        '{OPCODE_ADD,'0,'0,4'b0000},
         '{OPCODE_SUB,8'hff,8'h01,4'h1},
         '{OPCODE_PAR,8'haa,8'h55,4'h2},
         '{OPCODE_COMP,8'h55,8'haa,4'h3},

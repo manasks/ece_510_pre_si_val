@@ -145,7 +145,7 @@ end
 			.byte_sum(add_sum),
 			.byte_overflow(add_overflow),
 			.start(start_def),
-			.done(add_done)
+			.done(done)
 	);
 
 	byte_subtractor subtractor_ex(
@@ -155,7 +155,7 @@ end
 			.byte_diff(sub_diff),
 			.byte_borrow_out(sub_borrow_out),
 			.start(start_def),
-			.done(sub_done)
+			.done(done)
 	);
 	
 	byte_parity parity_ex(
@@ -163,7 +163,7 @@ end
 			.byte_b(par_b),
 			.byte_parity(par_parity),
 			.start(start_def),
-			.done(par_done)
+			.done(done)
 	);
 
 	byte_comp comp_ex(
@@ -171,7 +171,7 @@ end
 			.byte_b(comp_b),
 			.byte_comp(comp_comp),
 			.start(start_def),
-			.done(comp_done)
+			.done(done)
 	);
 
 endmodule
