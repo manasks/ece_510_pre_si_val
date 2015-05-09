@@ -32,10 +32,10 @@ module alu_test
    // Define parameters
    parameter RESET_DURATION = 500;
    parameter CYCLE_TO_LATCH_FIRST_DATA = 2;
-   parameter OPCODE_ADD = 2'b00;
-   parameter OPCODE_SUB = 2'b01;
-   parameter OPCODE_PAR = 2'b10;
-   parameter OPCODE_COMP = 2'b11;
+   //parameter OPCODE_ADD = 2'b00;
+   //parameter OPCODE_SUB = 2'b01;
+   //parameter OPCODE_PAR = 2'b10;
+   //parameter OPCODE_COMP = 2'b11;
 
    // Define internal registers
    logic                   int_reset_n;
@@ -43,17 +43,66 @@ module alu_test
    logic [1:0]             full_opcode;
    logic                   int_opcode;
    logic [DATA_WIDTH-1:0] int_data;
-   logic [7:0] i;
+   int i;
    logic [3:0] delay;
 
    alu_test_stim_s stim;
 
+   alu_test_stim_s alu_test_stim[0:15] =  '{
+        '{OPCODE_ADD,0x00,0xFF,0x0},
+        '{OPCODE_SUB,0xff,0x01,0x1},
+        '{OPCODE_PAR,0xaa,0x55,0x2},
+        '{OPCODE_COMP,0x55,0xaa,0x3},
+        '{OPCODE_ADD,0x17,0xe8,0x4},
+        '{OPCODE_SUB,0xe8,0x01,0x5},
+        '{OPCODE_PAR,0x01,0xc2,0x6},
+        '{OPCODE_COMP,0xc2,0x0f,0x7},
+        '{OPCODE_ADD,0x0f,0xf0,0x8},
+        '{OPCODE_SUB,0xf0,0x2c,0x9},
+        '{OPCODE_PAR,0x2c,0x7f,0xa},
+        '{OPCODE_COMP,0x7f,0x89,0xb},
+        '{OPCODE_AD,0x89,0x3d,0xc},
+        '{OPCODE_SUB,0x3d,0x54,0xd},
+        '{OPCODE_PAR,0x54,0xf1,0xe},
+        '{OPCODE_COMP,0xf1,0x0,0xf}
+   };
+  
+   initial
+   begin
+      // Generate one-time internal reset signal
+      int_reset_n = 0;
+      # RESET_DURATION int_reset_n = 1;
+      $display ("\n@ %0d ns: The chip is out of reset", $time);
+
+      int_opcode_valid = 0;
+
+      repeat (5)  @(posedge clk);
+
+      for (i=0; i < 16; i=i+1) begin
+         $display ("\n@ %0d ns Starting new stimulus\n", $time);
+         int_opcode_valid = 1;
+         int_opcode = alu_test_stim[i].alu_opcode[0];
+         int_data = alu_test_stim[i].data_a;
+         $display("@ %0d: ns Valid Opcode = %h with Data A = %h is injected",$time,alu_test_stim[i].alu_opcode,int_data);
+         repeat (CYCLE_TO_LATCH_FIRST_DATA) @(posedge clk);
+         int_opcode = alu_test_stim[i].alu_opcode[1];
+         int_data = alu_test_stim[i].data_b;
+         $display("@ %0d: ns Valid Opcode = %h with Data B = %h is injected",$time,alu_test_stim[i].alu_opcode,int_data);
+         while(done==0) @(posedge clk);
+         $display ("@ %0d ns: Result is: %h. Overflow bit is %h.\n", $time, result, overflow);
+         int_opcode_valid = 0;
+         delay = alu_test_stim[i].delay;
+         repeat (delay+2) @(posedge clk);
+      end
+      $finish;
+   end
+/*
    initial begin
 
       // Generate one-time internal reset signal
       int_reset_n = 0;
       # RESET_DURATION int_reset_n = 1;
-      $display ("\n@ %0d ns The chip is out of reset", $time);
+      $display ("\n@ %0d ns: The chip is out of reset", $time);
 
       int_opcode_valid = 0;
 
@@ -248,7 +297,7 @@ module alu_test
       $finish;
 
    end
-
+*/
    // Continuous assignment to output
    assign reset_n      = int_reset_n;
    assign opcode_valid = int_opcode_valid;

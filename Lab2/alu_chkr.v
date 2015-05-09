@@ -40,12 +40,12 @@ module alu_chkr
    input                     opcode,
 
    // Data inputs
-   input [`DATA_WIDTH-1:0]   data,
+   input [DATA_WIDTH-1:0]   data,
 
    // 
    input                    done,
    input                    overflow,
-   input  [`DATA_WIDTH-1:0] result
+   input  [DATA_WIDTH-1:0] result
 
    );
 
@@ -57,11 +57,11 @@ module alu_chkr
    reg [2:0] opcode_valid_count;
    reg [2:0] reset_count;
 
-   reg [`DATA_WIDTH-1:0] calc_result;
+   reg [DATA_WIDTH-1:0] calc_result;
    reg                   calc_overflow;
 
-   reg [`DATA_WIDTH-1:0] data_a;
-   reg [`DATA_WIDTH-1:0] data_b;
+   reg [DATA_WIDTH-1:0] data_a;
+   reg [DATA_WIDTH-1:0] data_b;
    reg [1:0] int_opcode;
 
    // Generate some counters
