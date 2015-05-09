@@ -103,22 +103,22 @@ begin
 				case(opcode_buf)
 					ADD:
 					begin
-						NextState = ADD;
+						NextState = S_ADD;
 					end
 					
 					SUB:
 					begin
-						NextState = SUB;
+						NextState = S_SUB;
 					end
 					
 					PAR:
 					begin
-						NextState = PAR;
+						NextState = S_PAR;
 					end
 					
 					COMP:
 					begin
-						NextState = COMP;
+						NextState = S_COMP;
 					end				
 				endcase
 			end
@@ -136,7 +136,7 @@ begin
 			end
 			else
 			begin
-				NextState = ADD;
+				NextState = S_ADD;
 			end
         end
 
@@ -148,7 +148,7 @@ begin
 			end
 			else
 			begin
-				NextState = SUB;
+				NextState = S_SUB;
 			end
         end
 
@@ -160,7 +160,7 @@ begin
 			end
 			else
 			begin
-				NextState = PAR;
+				NextState = S_PAR;
 			end
         end
 
@@ -172,7 +172,7 @@ begin
 			end
 			else
 			begin
-				NextState = COMP;
+				NextState = S_COMP;
 			end
         end
 
@@ -181,6 +181,7 @@ begin
 			NextState = IDLE;
         end
 	endcase
+    $display("done: %h \t opcode: %h \t opcode_valid: %h \t data: %h \t State: %h \t opcode_buf: %h",done, opcode, opcode_valid, data, State, opcode_buf);
 end
 
 always_comb

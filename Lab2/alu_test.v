@@ -47,26 +47,28 @@ module alu_test
    logic [3:0] delay;
 
    alu_test_stim_s stim;
-
-   alu_test_stim_s alu_test_stim[0:15] =  '{
-        '{OPCODE_ADD,0x00,0xFF,0x0},
-        '{OPCODE_SUB,0xff,0x01,0x1},
-        '{OPCODE_PAR,0xaa,0x55,0x2},
-        '{OPCODE_COMP,0x55,0xaa,0x3},
-        '{OPCODE_ADD,0x17,0xe8,0x4},
-        '{OPCODE_SUB,0xe8,0x01,0x5},
-        '{OPCODE_PAR,0x01,0xc2,0x6},
-        '{OPCODE_COMP,0xc2,0x0f,0x7},
-        '{OPCODE_ADD,0x0f,0xf0,0x8},
-        '{OPCODE_SUB,0xf0,0x2c,0x9},
-        '{OPCODE_PAR,0x2c,0x7f,0xa},
-        '{OPCODE_COMP,0x7f,0x89,0xb},
-        '{OPCODE_AD,0x89,0x3d,0xc},
-        '{OPCODE_SUB,0x3d,0x54,0xd},
-        '{OPCODE_PAR,0x54,0xf1,0xe},
-        '{OPCODE_COMP,0xf1,0x0,0xf}
+   
+   alu_test_stim_s alu_test_stim[0:15] =  {
+        '{OPCODE_SUB,'0,'0,4'b0000},
+        '{OPCODE_SUB,8'hff,8'h01,4'h1},
+        '{OPCODE_PAR,8'haa,8'h55,4'h2},
+        '{OPCODE_COMP,8'h55,8'haa,4'h3},
+        '{OPCODE_ADD,8'h17,8'he8,4'h4},
+        '{OPCODE_SUB,8'he8,8'h01,4'h5},
+        '{OPCODE_PAR,8'h01,8'hc2,4'h6},
+        '{OPCODE_COMP,8'hc2,8'h0f,4'h7},
+        '{OPCODE_ADD,8'h0f,8'hf0,4'h8},
+        '{OPCODE_SUB,8'hf0,8'h2c,4'h9},
+        '{OPCODE_PAR,8'h2c,8'h7f,4'ha},
+        '{OPCODE_COMP,8'h7f,8'h89,4'hb},
+        '{OPCODE_ADD,8'h89,8'h3d,4'hc},
+        '{OPCODE_SUB,8'h3d,8'h54,4'hd},
+        '{OPCODE_PAR,8'h54,8'hf1,4'he},
+        '{OPCODE_COMP,8'hf1,8'h0,4'hf}
    };
-  
+
+   //alu_test_stim_s test = {OPCODE_ADD,'0,'0,'0};
+
    initial
    begin
       // Generate one-time internal reset signal
