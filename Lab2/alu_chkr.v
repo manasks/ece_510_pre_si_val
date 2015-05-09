@@ -64,6 +64,42 @@ module alu_chkr
    reg [DATA_WIDTH-1:0] data_b;
    reg [1:0] int_opcode;
 
+   // Checker #1
+   property reset_n_p;
+     @(posedge clk)
+        (~reset) |=> (result == '0 && overflow == '0 && done =='0);
+   endproperty
+   reset_n_a: assert property(reset_n_p);
+   
+   // Checker #2
+   property valid_p;
+     @(posedge clk)
+        (opcode_valid) |-> (opcode !== 'x && data !== 'x) | (opcode !== 'z && data !== 'z));
+   endproperty
+   valid_a: assert property(valid_p);
+   
+   // Checker #3
+   property done_p;
+     @(posedge clk)
+         (opcode_valid_cout == 5) |=> (done == 0x1);
+   endproperty
+   done_a: assert property(done_p);
+   
+   // Checker #4
+   property result_p;
+     @(posedge clk)
+        (done)  |=> (result == calc_result);
+   endproperty
+   result_a: assert property(result_p);
+
+   // Checker #5
+   property overflow_p;
+     @(posedge clk)
+        (done)  |=> (overflow == calc_overflow);
+   endproperty
+   overflow_a: assert property(overflow_p);
+
+
    // Generate some counters
    always @(posedge clk) begin
       if (opcode_valid)
