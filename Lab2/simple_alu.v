@@ -181,7 +181,7 @@ begin
 			NextState = IDLE;
         end
 	endcase
-    $display("done: %h \t opcode: %h \t opcode_valid: %h \t data: %h \t State: %h \t opcode_buf: %h",done, opcode, opcode_valid, data, State, opcode_buf);
+    //$display("done: %h \t opcode: %h \t opcode_valid: %h \t data: %h \t State: %h \t opcode_buf: %h \t result: %h \t overflow: %h",done, opcode, opcode_valid, data, State, opcode_buf, result, overflow);
 end
 
 always_comb

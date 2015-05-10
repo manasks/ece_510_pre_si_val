@@ -58,21 +58,21 @@ module alu_chkr
    endproperty
    valid_a: assert property(valid_p);
    `endif
-/*
+
    // Checker #3
    `ifndef DISABLE_CHECK3
    property done_p;
      @(posedge clk)
-         (opcode_valid_count == 5) |=> (done == 1'b1);
+         (opcode_valid_count == 4) |-> (done);
    endproperty
    done_a: assert property(done_p);
    `endif
-*/
+
    // Checker #4
    `ifndef DISABLE_CHECK4
    property result_p;
      @(posedge clk)
-        (done)  |=> (result == calc_result);
+        (done)  |-> (result == calc_result);
    endproperty
    result_a: assert property(result_p);
    `endif
@@ -88,6 +88,8 @@ module alu_chkr
 
    // Generate some counters
    always @(posedge clk) begin
+      //$display("result: %h \t calc_result: %h",result,calc_result);
+      //$display("opcode_valid_count: %h \t calc_overflow: %h \t calc_result: %h \t data_a: %h \t data_b: %h \t result: %h \t int_opcode: %h \t opcode: %h",opcode_valid_count, calc_overflow, calc_result, data_a, data_b, result, int_opcode, opcode);
       if (opcode_valid)
          opcode_valid_count = opcode_valid_count+1;
       else
@@ -103,6 +105,8 @@ module alu_chkr
 
    // Capture both data operands on subsequent cycles
    always @(posedge clk) begin
+      //$display("opcode_valid_count: %h \t calc_overflow: %h \t calc_result: %h \t data_a: %h \t data_b: %h \t result: %h \t int_opcode: %h \t opcode: %h",opcode_valid_count, calc_overflow, calc_result, data_a, data_b, result, int_opcode, opcode);
+      $display("");
       if (opcode_valid_count == 0) begin
          data_a     = 0;
          data_b     = 0;
@@ -116,8 +120,8 @@ module alu_chkr
       else if (opcode_valid_count == 3) begin
          data_b = data;
          int_opcode[1] = opcode;
+         calc_outputs();
       end
-
    end
 
    // Task to calculate expected results
@@ -125,21 +129,21 @@ module alu_chkr
    begin
       case(int_opcode)
          OPCODE_ADD:   begin
-                  {calc_overflow,calc_result} <= data_a + data_b;
+                  {calc_overflow,calc_result} = data_a + data_b;
                end
 
          OPCODE_SUB:   begin
-                  {calc_overflow,calc_result} <= data_a - data_b;
+                  {calc_overflow,calc_result} = data_a - data_b;
                end
 
          OPCODE_PAR:   begin
-                  calc_result   <= data_a ^ data_b;
-                  calc_overflow <= ^calc_result;
+                  calc_result   = data_a ^ data_b;
+                  calc_overflow <= 0;
                end
 
          OPCODE_COMP:   begin
-                  calc_result   <= data_a ~^ data_b;
-                  calc_overflow <= 0;
+                  calc_result   = data_a ^~ data_b;
+                  calc_overflow = 0;
                end
       endcase
    end   
