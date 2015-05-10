@@ -88,8 +88,6 @@ module alu_chkr
 
    // Generate some counters
    always @(posedge clk) begin
-      //$display("result: %h \t calc_result: %h",result,calc_result);
-      //$display("opcode_valid_count: %h \t calc_overflow: %h \t calc_result: %h \t data_a: %h \t data_b: %h \t result: %h \t int_opcode: %h \t opcode: %h",opcode_valid_count, calc_overflow, calc_result, data_a, data_b, result, int_opcode, opcode);
       if (opcode_valid)
          opcode_valid_count = opcode_valid_count+1;
       else
@@ -105,8 +103,7 @@ module alu_chkr
 
    // Capture both data operands on subsequent cycles
    always @(posedge clk) begin
-      //$display("opcode_valid_count: %h \t calc_overflow: %h \t calc_result: %h \t data_a: %h \t data_b: %h \t result: %h \t int_opcode: %h \t opcode: %h",opcode_valid_count, calc_overflow, calc_result, data_a, data_b, result, int_opcode, opcode);
-      $display("");
+      $display();
       if (opcode_valid_count == 0) begin
          data_a     = 0;
          data_b     = 0;
