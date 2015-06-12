@@ -1,0 +1,106 @@
+   1            / Program : Add01.pal
+   2            / Date : March 3, 2002
+   3            /
+   4            / Desc : This program computes c = a + b
+   5            /
+   6            /-------------------------------------------
+   7            /
+   8            / Code Section
+   9            /
+  10            *0200			/ start at address 0200
+  11 00200 7300 Main, 	cla cll 	/ clear AC and Link
+  12 00201 1253 		tad A 		/ add A to Accumulator
+  13 00202 1254 		tad B 		/ add B
+  14 00203 3255 		dca C 		/ store sum at C
+  15 00204 7300 		cla cll
+  16 00205 1250 		tad X
+  17 00206 1251 		tad Y
+  18 00207 3252 		dca Z
+  19 00210 7402 		hlt
+  20 00211 5221 		jmp next
+  21 00212 7300 		cla cll
+  22 00213 1250 		tad X
+  23 00214 1251 		tad Y
+  24 00215 3252 		dca Z
+  25 00216 7402 		hlt
+  26 00217 1253 		tad A
+  27 00220 7300 		cla cll
+  28 00221 1250 next,	tad X
+  29 00222 1251 		tad Y
+  30 00223 0350 		and D
+  31 00224 3352 		dca F
+  32 00225 7300 Sub,	cla cll
+  33 00226 3354 		dca H
+  34 00227 0353 		and G
+  35 00230 3353 		dca G
+  36 00231 1353 		tad G
+  37 00232 2253 		isz A
+  38 00233 5235 		jmp sample
+  39 00234 2253 		isz A
+  40 00235 1353 sample,	tad G
+  41 00236 3353 		dca G
+  42 00237 7300 		cla cll
+  43 00240 4225 		jms Sub
+  44 00241 1254 		tad B
+  45 00242 3253 check,	dca A
+  46 00243 1352 		tad F
+  47 00244 3254 		dca B
+  48 00245 0350 		and D
+  49 00246 3352 		dca F
+  50 00247 0353 		and G
+  51 00250 2353 		isz G
+  52 00251 4242 		jms check
+  53 00252 7300 		cla cll
+  54 00253 3355 		dca I
+  55 00254 1251 		tad Y
+  56 00255 0356 		and K
+  57 00256 4221 		jms next
+  58 00257 5261 		jmp final
+  59 00260 1253 		tad A
+  60 00261 7300 final,	cla cll
+  61 00262 1354 		tad H
+  62            		
+  63 00263 7402 		hlt 		/ Halt program
+  64 00264 5200 		jmp Main	/ To continue - goto Main
+  65            
+  66            /
+  67            / Data Section
+  68            /
+  69            *0250 			/ place data at address 0250
+  70 00250 0045 X, 	45 		/ A equals 2
+  71 00251 0007 Y, 	7 		/ B equals 3
+  72 00252 0031 Z, 	31
+  73 00253 0002 A, 	2 		/ A equals 2
+  74 00254 0003 B, 	3 		/ B equals 3
+  75 00255 0000 C, 	0
+  76            
+  77            *350
+  78 00350 0065 D,	65
+  79 00351 0123 E,	123
+  80 00352 0214 F,	214
+  81 00353 0167 G,	167
+  82 00354 0423 H,	423
+  83 00355 0065 I,	65
+  84 00356 0021 K,	21
+  85            
+  86            *400
+  87 00400 0072 L,	72
+  88 00401 0050 M,	50
+  89 00402 0003 N,	3
+  90 00403 0020 O,	20
+  91 00404 0023 P,	23
+  92 00405 0057 Q,	57
+  93            
+  94            *650
+  95 00650 0013 R,	13
+  96 00651 0011 S,	11
+  97 00652 0666 The,	666
+  98 00653 0777 U,	777
+  99 00654 0000 V,	0
+ 100 00655 0033 W,	33
+ 101            
+ 102            *700
+ 103 00700 0205 SubAddr, 205 
+ 104 00701 0077 iszdata, 77
+ 105            
+ 106            $Main 			/ End of Program; Main is entry point
