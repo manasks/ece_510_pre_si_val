@@ -1,0 +1,10 @@
+pdp8_pkg.sv
+clkgen_driver.sv
+instr_exec.sv
+instr_decode.sv
+memory_pdp.sv
+chkr_instr_exec.sv
+chkr_decode.sv
+assertions_instr_exec.sv
+test_mem.sv
+top.sv

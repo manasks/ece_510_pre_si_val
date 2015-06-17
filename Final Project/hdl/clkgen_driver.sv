@@ -24,10 +24,6 @@
 // Declare time paramemters
 timeunit 1ns;
 timeprecision 1ns;
-
-// Import the package
-import pdp8_pkg::*;
-
 // Define module
 module clkgen_driver
   (

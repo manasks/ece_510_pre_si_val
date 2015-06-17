@@ -31,6 +31,7 @@ package pdp8_pkg;
 
 `define ADDR_WIDTH 12
 `define DATA_WIDTH 12
+`define OP7_WIDTH 12
 
 // Defines for MRI instructions
 `define AND 0
@@ -39,6 +40,8 @@ package pdp8_pkg;
 `define DCA 3
 `define JMS 4
 `define JMP 5
+
+parameter DELAY=10;
 
 typedef struct packed {
    logic AND;
@@ -100,6 +103,8 @@ typedef struct packed {
    logic CLA2;
 
 } pdp_op7_opcode_s;
+
+import pdp8_pkg::*;
 
 endpackage: pdp8_pkg
 

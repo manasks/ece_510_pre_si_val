@@ -19,7 +19,6 @@
 
 `include "pdp8_pkg.sv"
 import pdp8_pkg::*;
-
 module instr_decode
   (
    // Global inputs
@@ -126,7 +125,7 @@ module instr_decode
          DATA_RCVD: begin
                        int_rd_req <= 0;
                        int_rd_data <= ifu_rd_data;
-
+		
                        next_state <= INST_DEC;
                     end
 

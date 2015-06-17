@@ -1,0 +1,8 @@
+pdp8_pkg.sv
+clkgen_driver.sv
+instr_exec.sv
+stim_instr_exec.sv
+assertions_instr_exec.sv
+chkr_instr_exec.sv
+resp_instr_exec.sv
+test_instr_exec.sv

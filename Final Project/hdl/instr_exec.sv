@@ -67,7 +67,7 @@ module instr_exec
          UNSTALL } current_state, next_state;
 
    reg                   int_stall; // Internal signal to control stall
-   reg [`DATA_WIDTH:0]   intAcc;    // 1bit extra for CARRY
+   logic [`DATA_WIDTH:0]   intAcc;    // 1bit extra for CARRY
    reg [`DATA_WIDTH:0]   tempAcc;   // 1bit extra for CARRY
 
    reg [`ADDR_WIDTH-1:0] intPC;     // Internal register to calculate PC value
@@ -125,8 +125,17 @@ module instr_exec
       if (!reset_n) current_state <= IDLE;
       else          current_state <= next_state;
 
+/*
+   initial
+   begin
+      $monitor("exec intAcc: 0x%h \t exec_rd_data: 0x%h", intAcc,int_exec_rd_data);
+   end
+*/ 
+
    // Always block to calculate outputs
    always_comb begin
+      //$display("pdp_mem_opcode: %b \t pdp_op7_opcode: %b \t stall: %b \t current_state: %s",pdp_mem_opcode,pdp_op7_opcode,stall,current_state);
+      //$display("exec intAcc: 0x%h",intAcc);
       case (current_state)
 
          // The FSM will stay in IDLE until it gets out of reset
@@ -241,6 +250,7 @@ module instr_exec
                intAcc <= tempAcc + int_exec_rd_data;
                if (intAcc[`DATA_WIDTH]) intLink <= ~tempLink;
                next_state <= UNSTALL;
+               //$display("tempAcc: 0x%h \t int_exec_rd_data: 0x%h \t intAcc: 0x%h",tempAcc,int_exec_rd_data,intAcc);
             end
 
          // Data from memory is AND'ed wth AC value
